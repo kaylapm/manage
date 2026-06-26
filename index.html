@@ -62,7 +62,8 @@
         /* Header */
         header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
             align-items: center;
             margin-bottom: 5px;
             border-bottom: 1px solid var(--border-color);
@@ -88,7 +89,7 @@
         }
 
         .menu-toggle-btn {
-            display: none;
+            display: flex;
             background: #ffffff;
             border: 1px solid var(--border-color);
             border-radius: 10px;
@@ -109,7 +110,7 @@
 
         /* Navigation Menu Tabs */
         .nav-tabs {
-            display: flex;
+            display: none !important;
             justify-content: center;
             background: #f1f5f9;
             padding: 4px;
