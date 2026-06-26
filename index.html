@@ -12,27 +12,36 @@
     
     <style>
         :root {
-            --bg-base: #f8fafc;
-            --bg-card: #ffffff;
-            --border-color: #e2e8f0;
-            --border-hover: #cbd5e1;
+            /* Glassmorphism theme base */
+            --bg-base: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.65);
+            --border-color: rgba(255, 255, 255, 0.6);
+            --border-inner: rgba(15, 23, 42, 0.06);
+            --border-hover: rgba(15, 23, 42, 0.12);
             
-            --primary: #2563eb;
-            --primary-light: #eff6ff;
-            --success: #16a34a;
-            --success-light: #f0fdf4;
-            --danger: #dc2626;
-            --danger-light: #fef2f2;
-            --warning: #d97706;
-            --warning-light: #fffbeb;
+            /* Premium indigo/violet theme colors */
+            --primary: #6366f1; /* indigo-500 */
+            --primary-dark: #4f46e5; /* indigo-600 */
+            --primary-light: rgba(99, 102, 241, 0.08);
+            --success: #10b981; /* emerald-500 */
+            --success-dark: #059669; /* emerald-600 */
+            --success-light: rgba(16, 185, 129, 0.08);
+            --danger: #ef4444; /* red-500 */
+            --danger-dark: #dc2626;
+            --danger-light: rgba(239, 68, 68, 0.08);
+            --warning: #f59e0b; /* amber-500 */
+            --warning-dark: #d97706;
+            --warning-light: rgba(245, 158, 11, 0.08);
             
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
+            --text-primary: #0f172a; /* slate-900 */
+            --text-secondary: #334155; /* slate-700 */
+            --text-muted: #64748b; /* slate-500 */
             
-            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 4px 20px -2px rgba(15, 23, 42, 0.03), 0 2px 4px -1px rgba(15, 23, 42, 0.01);
+            --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 16px -6px rgba(15, 23, 42, 0.02);
+            --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.08), 0 10px 20px -8px rgba(15, 23, 42, 0.04);
+            
+            --glass-blur: 20px;
         }
 
         * {
@@ -46,9 +55,36 @@
             background-color: var(--bg-base);
             color: var(--text-primary);
             min-height: 100vh;
-            padding: 35px 15px;
+            padding: 40px 20px;
             display: flex;
             justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Glow Blobs */
+        .bg-glow {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(130px);
+            opacity: 0.55;
+            pointer-events: none;
+            transition: all 0.5s ease;
+        }
+
+        .bg-glow-1 {
+            top: -150px;
+            left: -150px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.45) 0%, rgba(139, 92, 246, 0.15) 70%, transparent 100%);
+        }
+
+        .bg-glow-2 {
+            bottom: -150px;
+            right: -150px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, rgba(14, 165, 233, 0.15) 70%, transparent 100%);
         }
 
         .app-container {
@@ -57,6 +93,7 @@
             display: flex;
             flex-direction: column;
             gap: 25px;
+            z-index: 1;
         }
 
         /* Header */
@@ -66,19 +103,22 @@
             justify-content: flex-end;
             align-items: center;
             margin-bottom: 5px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-inner);
             padding-bottom: 20px;
             gap: 15px;
         }
 
-        .header-title {
+        .header-info {
             text-align: left;
         }
 
         header h1 {
             font-size: 2.2rem;
             font-weight: 800;
-            color: var(--text-primary);
+            background: linear-gradient(135deg, #0f172a 0%, #4f46e5 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
             letter-spacing: -0.02em;
             margin-bottom: 6px;
         }
@@ -86,26 +126,30 @@
         header p {
             color: var(--text-secondary);
             font-size: 1rem;
+            font-weight: 400;
         }
 
         .menu-toggle-btn {
             display: flex;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 10px;
+            border-radius: 12px;
+            padding: 12px;
             cursor: pointer;
             color: var(--text-primary);
             align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow-sm);
         }
 
         .menu-toggle-btn:hover {
-            background: var(--primary-light);
-            color: var(--primary);
-            border-color: rgba(37, 99, 235, 0.2);
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary-dark);
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: scale(1.05);
         }
 
         /* Navigation Menu Tabs */
@@ -153,7 +197,7 @@
         /* Tab Content Containers */
         .tab-content {
             display: none;
-            animation: fadeIn 0.3s ease-out;
+            animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .tab-content.active {
@@ -161,97 +205,106 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* Card Layout Panels */
         .card-panel {
             background: var(--bg-card);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: var(--shadow-sm);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: var(--shadow-md);
             margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card-panel:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(255, 255, 255, 0.85);
         }
 
         .card-title {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-inner);
+            padding-bottom: 14px;
         }
 
         .card-title svg {
-            color: var(--primary);
+            color: var(--primary-dark);
             flex-shrink: 0;
         }
 
         /* Tab 1: Ketentuan Styles */
         .rules-hero {
-            background: var(--primary-light);
-            border: 1px solid rgba(37, 99, 235, 0.15);
-            border-radius: 14px;
-            padding: 18px 20px;
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 16px;
+            padding: 20px;
             margin-bottom: 20px;
             display: flex;
             align-items: flex-start;
             gap: 15px;
+            backdrop-filter: blur(5px);
         }
 
         .rules-hero svg {
-            color: var(--primary);
+            color: var(--primary-dark);
             flex-shrink: 0;
             margin-top: 2px;
         }
 
         .rules-hero h3 {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 4px;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
         }
 
         .rules-hero p {
             color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 0.98rem;
+            line-height: 1.6;
         }
 
         .rules-table-container {
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border: 1px solid var(--border-inner);
+            border-radius: 14px;
             overflow-x: auto;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.4);
             margin-bottom: 20px;
         }
 
         .rules-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             text-align: left;
         }
 
         .rules-table th {
-            padding: 12px 16px;
+            padding: 14px 18px;
             font-weight: 600;
             color: var(--text-secondary);
-            background: #f8fafc;
-            border-bottom: 1.5px solid var(--border-color);
+            background: rgba(15, 23, 42, 0.02);
+            border-bottom: 1.5px solid var(--border-inner);
             white-space: nowrap;
         }
 
         .rules-table td {
-            padding: 12px 16px;
-            border-bottom: 1px solid #f1f5f9;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-inner);
             color: var(--text-primary);
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .rules-table tr:last-child td {
@@ -263,26 +316,28 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 6px 12px;
+            padding: 8px 14px;
             background-color: var(--primary-light);
-            color: var(--primary);
-            border: 1px solid rgba(37, 99, 235, 0.15);
-            border-radius: 8px;
-            font-size: 0.8rem;
+            color: var(--primary-dark);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 10px;
+            font-size: 0.85rem;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             white-space: nowrap;
         }
 
         .link-btn:hover {
-            background-color: var(--primary);
+            background-color: var(--primary-dark);
             color: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);
         }
 
         .link-disabled {
             color: var(--text-muted);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-style: italic;
         }
 
@@ -295,44 +350,47 @@
 
         .stat-card {
             background: var(--bg-card);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 24px;
             box-shadow: var(--shadow-sm);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(255, 255, 255, 0.85);
         }
 
         .stat-info {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 6px;
         }
 
         .stat-label {
             color: var(--text-secondary);
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.88rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.06em;
         }
 
         .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
+            font-size: 2.2rem;
+            font-weight: 800;
             color: var(--text-primary);
-            line-height: 1.2;
+            line-height: 1.1;
         }
 
         .stat-sub {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
         }
 
@@ -343,8 +401,8 @@
         /* Radial Charts */
         .radial-container {
             position: relative;
-            width: 76px;
-            height: 76px;
+            width: 80px;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -356,7 +414,7 @@
 
         .radial-bg {
             fill: none;
-            stroke: #f1f5f9;
+            stroke: rgba(15, 23, 42, 0.04);
             stroke-width: 6;
         }
 
@@ -364,169 +422,176 @@
             fill: none;
             stroke-width: 6;
             stroke-linecap: round;
-            transition: stroke-dashoffset 0.8s ease-in-out;
+            transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .radial-text {
             position: absolute;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: var(--text-primary);
         }
 
         /* Tab 3: Search & Result styles */
         .search-area {
-            max-width: 500px;
-            margin: 0 auto 25px auto;
+            max-width: 550px;
+            margin: 0 auto 30px auto;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
         }
 
         .search-field {
             display: flex;
             position: relative;
             box-shadow: var(--shadow-sm);
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
             border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
 
         .search-field:focus-within {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+            background: rgba(255, 255, 255, 0.85);
         }
 
         .search-input {
             width: 100%;
-            padding: 14px 18px;
+            padding: 16px 20px;
             border: none;
             outline: none;
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: var(--text-primary);
-            background: #ffffff;
+            background: transparent;
         }
 
         .btn-search {
-            padding: 0 24px;
-            background: var(--primary);
+            padding: 0 28px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             border: none;
             color: #ffffff;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         .btn-search:hover {
-            background: #1d4ed8;
+            opacity: 0.95;
+            transform: scale(1.01);
         }
 
         /* Result Panel Clean Layout */
         .result-panel {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 24px;
-            background: #ffffff;
-            box-shadow: var(--shadow-sm);
+            border-radius: 20px;
+            padding: 30px;
+            background: var(--bg-card);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            box-shadow: var(--shadow-md);
         }
 
         .result-placeholder {
             text-align: center;
             color: var(--text-muted);
-            padding: 40px 20px;
+            padding: 50px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
 
         .result-placeholder svg {
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             color: var(--text-muted);
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
         .result-card {
             display: none;
-            animation: fadeIn 0.3s ease-out;
+            animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .result-header {
             margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-inner);
             padding-bottom: 15px;
         }
 
         .result-header h2 {
-            font-size: 1.35rem;
-            font-weight: 700;
+            font-size: 1.45rem;
+            font-weight: 800;
             color: var(--text-primary);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .result-header p {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-secondary);
         }
 
         .badge-row {
             display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
+            gap: 10px;
+            margin-bottom: 24px;
         }
 
         .badge {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.82rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.03em;
+            letter-spacing: 0.05em;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
 
         .badge.success {
             background-color: var(--success-light);
-            color: var(--success);
-            border: 1px solid rgba(22, 163, 74, 0.2);
+            color: var(--success-dark);
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
 
         .badge.danger {
             background-color: var(--danger-light);
-            color: var(--danger);
-            border: 1px solid rgba(220, 38, 38, 0.2);
+            color: var(--danger-dark);
+            border: 1px solid rgba(239, 68, 68, 0.2);
         }
 
         .badge.primary {
             background-color: var(--primary-light);
-            color: var(--primary);
-            border: 1px solid rgba(37, 99, 235, 0.2);
+            color: var(--primary-dark);
+            border: 1px solid rgba(99, 102, 241, 0.2);
         }
 
         /* Linear Progress Bars */
         .bars-container {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
 
         .bar-group {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
         }
 
         .bar-info {
             display: flex;
             justify-content: space-between;
-            font-size: 0.88rem;
+            font-size: 0.92rem;
             font-weight: 500;
         }
 
@@ -540,35 +605,36 @@
         }
 
         .bar-track {
-            height: 8px;
-            background: #f1f5f9;
-            border-radius: 8px;
+            height: 10px;
+            background: rgba(15, 23, 42, 0.05);
+            border-radius: 10px;
             overflow: hidden;
         }
 
         .bar-fill {
             height: 100%;
-            border-radius: 8px;
+            border-radius: 10px;
             width: 0%;
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .bar-fill.blue { background-color: var(--primary); }
-        .bar-fill.green { background-color: var(--success); }
-        .bar-fill.orange { background-color: var(--warning); }
+        .bar-fill.blue { background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%); }
+        .bar-fill.green { background: linear-gradient(90deg, var(--success) 0%, var(--success-dark) 100%); }
+        .bar-fill.orange { background: linear-gradient(90deg, var(--warning) 0%, var(--warning-dark) 100%); }
 
         /* Global Alert box */
         .alert-box {
             display: none;
             background-color: var(--danger-light);
-            border: 1px solid rgba(220, 38, 38, 0.15);
-            color: var(--danger);
-            padding: 14px 18px;
-            border-radius: 10px;
-            font-size: 0.9rem;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: var(--danger-dark);
+            padding: 16px 20px;
+            border-radius: 14px;
+            font-size: 0.92rem;
             line-height: 1.5;
             text-align: left;
             margin-top: 10px;
+            backdrop-filter: blur(5px);
         }
 
         /* Sidebar Menu Styles */
@@ -578,13 +644,13 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(15, 23, 42, 0.3);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            background: rgba(15, 23, 42, 0.15);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             z-index: 1000;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.25s ease;
+            transition: opacity 0.3s ease;
         }
 
         .sidebar-overlay.active {
@@ -595,18 +661,20 @@
         .sidebar-menu {
             position: fixed;
             top: 0;
-            left: -280px;
-            width: 260px;
+            left: -290px;
+            width: 270px;
             height: 100vh;
-            background: #ffffff;
-            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            box-shadow: 15px 0 35px rgba(15, 23, 42, 0.04);
             z-index: 1001;
-            transition: left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-            padding: 24px 16px;
+            transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 28px 20px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            border-right: 1px solid var(--border-color);
+            gap: 24px;
+            border-right: 1px solid rgba(255, 255, 255, 0.6);
         }
 
         .sidebar-menu.active {
@@ -617,12 +685,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-inner);
+            padding-bottom: 16px;
         }
 
         .sidebar-header h2 {
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: var(--text-primary);
         }
@@ -635,33 +703,33 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4px;
-            border-radius: 6px;
+            padding: 6px;
+            border-radius: 8px;
             transition: background-color 0.2s;
         }
 
         .sidebar-close-btn:hover {
-            background-color: #f1f5f9;
+            background-color: rgba(15, 23, 42, 0.05);
             color: var(--text-primary);
         }
 
         .sidebar-links {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
         .sidebar-link {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             width: 100%;
-            padding: 12px 14px;
+            padding: 14px 16px;
             background: transparent;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             color: var(--text-secondary);
-            font-size: 0.92rem;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -674,7 +742,7 @@
         }
 
         .sidebar-link:hover {
-            background-color: #f8fafc;
+            background-color: rgba(15, 23, 42, 0.03);
             color: var(--text-primary);
         }
 
@@ -684,95 +752,76 @@
 
         .sidebar-link.active {
             background-color: var(--primary-light);
-            color: var(--primary);
+            color: var(--primary-dark);
         }
 
         .sidebar-link.active svg {
-            color: var(--primary);
+            color: var(--primary-dark);
         }
 
         /* CSS Responsif untuk Mobile Friendly */
         @media (max-width: 640px) {
             body {
-                padding: 15px 10px;
+                padding: 20px 12px;
             }
 
             .app-container {
-                gap: 15px;
+                gap: 16px;
             }
 
             header {
                 flex-direction: row-reverse;
                 justify-content: flex-end;
                 align-items: center;
-                gap: 15px;
-            }
-
-            .header-title {
-                text-align: left;
-            }
-
-            .menu-toggle-btn {
-                display: flex;
+                gap: 12px;
+                padding-bottom: 16px;
             }
 
             header h1 {
-                font-size: 1.5rem;
-                line-height: 1.2;
+                font-size: 1.45rem;
+                line-height: 1.25;
             }
 
             header p {
-                font-size: 0.82rem;
-                line-height: 1.3;
+                font-size: 0.85rem;
+                line-height: 1.4;
                 margin-top: 4px;
             }
 
-            .nav-tabs {
-                padding: 2px;
-                border-radius: 10px;
-                gap: 2px;
-            }
-
-            .nav-tab {
-                padding: 10px 8px;
-                font-size: 0.8rem;
-                gap: 4px;
-                border-radius: 6px;
-            }
-
-            .nav-tab svg {
-                width: 14px;
-                height: 14px;
-            }
-
             .card-panel {
-                padding: 16px;
-                border-radius: 12px;
+                padding: 18px;
+                border-radius: 16px;
                 margin-bottom: 12px;
             }
 
             .card-title {
-                font-size: 1rem;
-                margin-bottom: 12px;
-                padding-bottom: 8px;
+                font-size: 1.05rem;
+                margin-bottom: 14px;
+                padding-bottom: 10px;
             }
 
             .rules-hero {
-                padding: 12px 14px;
-                gap: 10px;
-                margin-bottom: 15px;
+                padding: 14px;
+                gap: 12px;
+                margin-bottom: 16px;
             }
 
             .rules-hero h3 {
-                font-size: 0.95rem;
+                font-size: 0.98rem;
             }
 
             .rules-hero p {
-                font-size: 0.85rem;
-                line-height: 1.4;
+                font-size: 0.88rem;
+                line-height: 1.5;
             }
 
-            /* Mengubah table menjadi tampilan block (card-list) di mobile */
+            /* Mengubah table menjadi tampilan list card yang elegan di mobile */
+            .rules-table-container {
+                border: none;
+                background: transparent;
+                margin-bottom: 10px;
+            }
+
             .rules-table, 
             .rules-table thead, 
             .rules-table tbody, 
@@ -787,44 +836,61 @@
             }
 
             .rules-table tr {
-                border-bottom: 1px solid var(--border-color);
-                padding: 12px 0;
+                background: rgba(255, 255, 255, 0.45);
+                border: 1px solid rgba(255, 255, 255, 0.5);
+                box-shadow: var(--shadow-sm);
+                border-radius: 14px;
+                padding: 14px;
+                margin-bottom: 14px;
             }
 
             .rules-table tr:last-child {
-                border-bottom: none;
+                margin-bottom: 0;
             }
 
+            /* Mengatasi agar teks panjang syarat minimal tidak terhimpit */
             .rules-table td {
                 border: none;
-                padding: 6px 8px;
+                padding: 6px 0;
                 display: flex;
-                justify-content: space-between;
-                align-items: center;
-                text-align: right;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                text-align: left;
+                gap: 4px;
             }
 
             .rules-table td::before {
                 content: attr(data-label);
                 font-weight: 700;
                 color: var(--text-secondary);
-                text-align: left;
-                font-size: 0.8rem;
+                font-size: 0.76rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
             }
 
-            /* Kolom pertama (Nama Program) dibuat penuh dan tanpa label */
+            /* Kolom pertama (Nama Program) sebagai header sub-card */
             .rules-table td:first-child {
                 font-weight: 700;
-                font-size: 0.92rem;
+                font-size: 1rem;
+                color: var(--primary-dark);
                 display: block;
-                text-align: left;
+                border-bottom: 1px dashed var(--border-inner);
+                padding-bottom: 8px;
                 margin-bottom: 6px;
-                padding-bottom: 4px;
-                border-bottom: 1px dashed #f1f5f9;
+                width: 100%;
             }
 
             .rules-table td:first-child::before {
                 display: none;
+            }
+
+            /* Tombol bukti spreadsheet pada mobile disesuaikan lebarnya */
+            .rules-table td[data-label="Link Spreadsheet"] .link-btn,
+            .rules-table td[data-label="Tautan Bukti"] .link-btn {
+                width: 100%;
+                justify-content: center;
+                margin-top: 4px;
             }
 
             /* Dashboard Layout */
@@ -834,55 +900,69 @@
             }
 
             .stat-card {
-                padding: 16px;
-                border-radius: 12px;
+                padding: 18px;
+                border-radius: 16px;
             }
 
             .stat-value {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
 
             .stat-label {
-                font-size: 0.8rem;
+                font-size: 0.82rem;
             }
 
             /* Tab 3 Cek Status */
             .search-area {
-                gap: 8px;
+                gap: 12px;
             }
 
             .search-input {
-                padding: 12px 14px;
-                font-size: 0.95rem;
+                padding: 14px 16px;
+                font-size: 0.98rem;
             }
 
             .btn-search {
-                padding: 0 16px;
-                font-size: 0.9rem;
+                padding: 0 20px;
+                font-size: 0.95rem;
             }
 
             .result-panel {
-                padding: 16px;
-                border-radius: 12px;
+                padding: 18px;
+                border-radius: 16px;
             }
 
             .result-header h2 {
-                font-size: 1.15rem;
+                font-size: 1.2rem;
             }
 
             .result-placeholder {
-                padding: 20px 10px;
+                padding: 30px 10px;
+            }
+            
+            .badge-row {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            
+            .badge {
+                padding: 6px 12px;
+                font-size: 0.78rem;
             }
         }
     </style>
 </head>
 <body>
 
+<!-- Background Glow Blobs for Light Glassmorphism -->
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+
 <div class="app-container">
     <header>
         <div class="header-info">
-            <h1>Sistem Status PO Jahim MANAGE 2025</h1>
-            <p>Portal verifikasi kelulusan KPP dan Konsekuensi KPP untuk pemesanan Jaket Himpunan</p>
+            <h1>Status PO Jahim MANAGE 2025</h1>
+            <p>Cek kelulusan KPP & Konsekuensi untuk pemesanan Jaket Himpunan</p>
         </div>
         <button id="menuToggleBtn" class="menu-toggle-btn" onclick="toggleSidebar(true)" aria-label="Buka Menu">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -901,7 +981,7 @@
         </button>
         <button class="nav-tab" onclick="switchTab('tab-search', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            Cek Hasil Akhir
+            Cek Status NRP
         </button>
     </div>
 
@@ -911,14 +991,14 @@
         <div class="card-panel">
             <div class="card-title">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                <span>Ketentuan Pemesanan Jaket Himpunan (Jahim)</span>
+                <span>Ketentuan Pemesanan Jaket Himpunan</span>
             </div>
             
             <div class="rules-hero">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                 <div>
-                    <h3>Syarat Utama Pemesanan Jaket Himpunan</h3>
-                    <p>Jaket Himpunan (Jahim) diperbolehkan dipesan apabila mahasiswa dinyatakan memenuhi kriteria kelulusan KPP & Konsekuensi KPP dengan nilai ambang batas **Nilai Total Akhir minimal <span id="textThreshold">75</span>**.</p>
+                    <h3>Ketentuan Kelayakan PO</h3>
+                    <p>Jaket Himpunan (Jahim) bisa dipesan jika kamu memenuhi syarat kelulusan KPP & Konsekuensi dengan **Nilai Total Akhir minimal <span id="textThreshold">75</span>**.</p>
                 </div>
             </div>
         </div>
@@ -927,8 +1007,8 @@
         <div class="card-panel">
             <div class="card-title">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                <span>Persyaratan Kelulusan KPP (Kinerja & Partisipasi Program)</span>
-                <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); background: #f1f5f9; padding: 4px 10px; border-radius: 20px; margin-left: auto;">Bobot Total: 50%</span>
+                <span>Kriteria Kelulusan KPP (Kinerja & Partisipasi Program)</span>
+                <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); background: rgba(99, 102, 241, 0.08); padding: 4px 10px; border-radius: 20px; margin-left: auto;">Bobot Total: 50%</span>
             </div>
             
             <div class="rules-table-container">
@@ -938,7 +1018,7 @@
                             <th style="width: 25%;">Nama Program</th>
                             <th style="width: 45%;">Ketentuan Detail / Syarat Minimal</th>
                             <th style="width: 12%; text-align: center;">Bobot</th>
-                            <th style="width: 18%; text-align: center;">Tautan Bukti</th>
+                            <th style="width: 18%; text-align: center;">Link Spreadsheet</th>
                         </tr>
                     </thead>
                     <tbody id="rulesKppBody">
@@ -954,8 +1034,8 @@
         <div class="card-panel">
             <div class="card-title">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                <span>Persyaratan Konsekuensi KPP</span>
-                <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); background: #f1f5f9; padding: 4px 10px; border-radius: 20px; margin-left: auto;">Bobot Total: 50%</span>
+                <span>Kriteria Konsekuensi KPP</span>
+                <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); background: rgba(245, 158, 11, 0.08); padding: 4px 10px; border-radius: 20px; margin-left: auto;">Bobot Total: 50%</span>
             </div>
 
             <div class="rules-table-container">
@@ -965,7 +1045,7 @@
                             <th style="width: 25%;">Nama Program</th>
                             <th style="width: 45%;">Ketentuan Detail / Syarat Minimal</th>
                             <th style="width: 12%; text-align: center;">Bobot</th>
-                            <th style="width: 18%; text-align: center;">Tautan Bukti</th>
+                            <th style="width: 18%; text-align: center;">Link Spreadsheet</th>
                         </tr>
                     </thead>
                     <tbody id="rulesKonsekBody">
@@ -986,11 +1066,11 @@
                 <!-- Card 1: Total Mahasiswa -->
                 <div class="stat-card">
                     <div class="stat-info">
-                        <span class="stat-label">Total Mahasiswa</span>
+                        <span class="stat-label">Total Mahasiswa Terdata</span>
                         <span class="stat-value" id="dashTotal">-</span>
-                        <span class="stat-sub">Jumlah entri mahasiswa terdaftar</span>
+                        <span class="stat-sub">Total mahasiswa yang terdata</span>
                     </div>
-                    <div style="background: var(--primary-light); padding: 14px; border-radius: 12px; color: var(--primary)">
+                    <div style="background: var(--primary-light); padding: 14px; border-radius: 12px; color: var(--primary-dark)">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                     </div>
                 </div>
@@ -998,14 +1078,14 @@
                 <!-- Card 2: Kelulusan Warga -->
                 <div class="stat-card">
                     <div class="stat-info">
-                        <span class="stat-label">Kelulusan Warga</span>
+                        <span class="stat-label">Kelulusan KPP (Warga)</span>
                         <span class="stat-value" id="dashWargaVal">-</span>
-                        <span class="stat-sub"><strong id="dashWargaCount">0</strong> dari total lulus jadi Warga</span>
+                        <span class="stat-sub"><strong id="dashWargaCount">0</strong> orang lulus jadi Warga</span>
                     </div>
                     <div class="radial-container">
-                        <svg width="76" height="76">
-                            <circle class="radial-bg" cx="38" cy="38" r="30"/>
-                            <circle class="radial-bar" id="circleWarga" cx="38" cy="38" r="30" stroke="var(--success)" stroke-dasharray="188.5" stroke-dashoffset="188.5"/>
+                        <svg width="80" height="80">
+                            <circle class="radial-bg" cx="40" cy="40" r="32"/>
+                            <circle class="radial-bar" id="circleWarga" cx="40" cy="40" r="32" stroke="var(--success)" stroke-dasharray="201" stroke-dashoffset="201"/>
                         </svg>
                         <span class="radial-text" id="dashWargaPercent">-</span>
                     </div>
@@ -1014,63 +1094,63 @@
                 <!-- Card 3: Kelayakan PO Jahim -->
                 <div class="stat-card">
                     <div class="stat-info">
-                        <span class="stat-label">Boleh PO Jahim</span>
+                        <span class="stat-label">Bisa PO Jahim</span>
                         <span class="stat-value" id="dashJahimVal">-</span>
-                        <span class="stat-sub"><strong id="dashJahimCount">0</strong> orang memenuhi syarat</span>
+                        <span class="stat-sub"><strong id="dashJahimCount">0</strong> orang bisa pesan Jahim</span>
                     </div>
                     <div class="radial-container">
-                        <svg width="76" height="76">
-                            <circle class="radial-bg" cx="38" cy="38" r="30"/>
-                            <circle class="radial-bar" id="circleJahim" cx="38" cy="38" r="30" stroke="var(--primary)" stroke-dasharray="188.5" stroke-dashoffset="188.5"/>
+                        <svg width="80" height="80">
+                            <circle class="radial-bg" cx="40" cy="40" r="32"/>
+                            <circle class="radial-bar" id="circleJahim" cx="40" cy="40" r="32" stroke="var(--primary)" stroke-dasharray="201" stroke-dashoffset="201"/>
                         </svg>
                         <span class="radial-text" id="dashJahimPercent">-</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Card Rata-rata Nilai Angkatan (Peningkatan Visual) -->
+            <!-- Card Rata-rata Nilai Angkatan -->
             <div class="card-panel">
                 <div class="card-title">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-                    <span>Rata-rata Capaian Nilai Angkatan 2024</span>
+                    <span>Rata-rata Nilai Angkatan</span>
                 </div>
-                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">Perbandingan rata-rata akumulasi nilai seluruh mahasiswa terdaftar untuk nilai KPP, Konsekuensi KPP, dan Nilai Total Akhir.</p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">Statistik rata-rata nilai KPP, Konsekuensi, dan Nilai Akhir seluruh mahasiswa.</p>
                 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
                     <!-- Rerata KPP -->
-                    <div style="background: #f8fafc; padding: 20px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+                    <div style="background: rgba(15, 23, 42, 0.02); padding: 20px; border-radius: 14px; border: 1px solid var(--border-inner); box-shadow: var(--shadow-sm);">
                         <div class="bar-info">
                             <span class="bar-label" style="font-weight: 600; color: var(--text-primary);">Rata-rata Nilai KPP</span>
-                            <span id="avgKppVal" class="bar-val" style="color: var(--primary); font-size: 1.25rem;">-</span>
+                            <span id="avgKppVal" class="bar-val" style="color: var(--primary-dark); font-size: 1.25rem;">-</span>
                         </div>
-                        <div class="bar-track" style="margin-top: 10px; background: #e2e8f0; height: 10px;">
+                        <div class="bar-track" style="margin-top: 10px; background: rgba(15, 23, 42, 0.06); height: 10px;">
                             <div id="avgKppFill" class="bar-fill blue" style="height: 100%;"></div>
                         </div>
-                        <span style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-top: 6px;">Berdasarkan bobot KPP 50%</span>
+                        <span style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-top: 6px;">Bobot nilai KPP: 50%</span>
                     </div>
                     
                     <!-- Rerata Konsekuensi -->
-                    <div style="background: #f8fafc; padding: 20px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+                    <div style="background: rgba(15, 23, 42, 0.02); padding: 20px; border-radius: 14px; border: 1px solid var(--border-inner); box-shadow: var(--shadow-sm);">
                         <div class="bar-info">
-                            <span class="bar-label" style="font-weight: 600; color: var(--text-primary);">Rata-rata Konsekuensi KPP</span>
-                            <span id="avgKonsekVal" class="bar-val" style="color: var(--warning); font-size: 1.25rem;">-</span>
+                            <span class="bar-label" style="font-weight: 600; color: var(--text-primary);">Rata-rata Konsekuensi</span>
+                            <span id="avgKonsekVal" class="bar-val" style="color: var(--warning-dark); font-size: 1.25rem;">-</span>
                         </div>
-                        <div class="bar-track" style="margin-top: 10px; background: #e2e8f0; height: 10px;">
+                        <div class="bar-track" style="margin-top: 10px; background: rgba(15, 23, 42, 0.06); height: 10px;">
                             <div id="avgKonsekFill" class="bar-fill orange" style="height: 100%;"></div>
                         </div>
-                        <span style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-top: 6px;">Berdasarkan bobot Konsekuensi 50%</span>
+                        <span style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-top: 6px;">Bobot nilai Konsekuensi: 50%</span>
                     </div>
                     
                     <!-- Rerata Total Akhir -->
-                    <div style="background: #f8fafc; padding: 20px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+                    <div style="background: rgba(15, 23, 42, 0.02); padding: 20px; border-radius: 14px; border: 1px solid var(--border-inner); box-shadow: var(--shadow-sm);">
                         <div class="bar-info">
-                            <span class="bar-label" style="font-weight: 600; color: var(--text-primary);">Rata-rata Nilai Total Akhir</span>
-                            <span id="avgTotalVal" class="bar-val" style="color: var(--success); font-size: 1.25rem;">-</span>
+                            <span class="bar-label" style="font-weight: 600; color: var(--text-primary);">Rata-rata Nilai Akhir</span>
+                            <span id="avgTotalVal" class="bar-val" style="color: var(--success-dark); font-size: 1.25rem;">-</span>
                         </div>
-                        <div class="bar-track" style="margin-top: 10px; background: #e2e8f0; height: 10px;">
+                        <div class="bar-track" style="margin-top: 10px; background: rgba(15, 23, 42, 0.06); height: 10px;">
                             <div id="avgTotalFill" class="bar-fill green" style="height: 100%;"></div>
                         </div>
-                        <span style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-top: 6px;">Standar PO Jahim: 75.0</span>
+                        <span style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-top: 6px;">Batas minimum PO Jahim: 75</span>
                     </div>
                 </div>
             </div>
@@ -1080,12 +1160,12 @@
     <!-- TAB 3: CEK STATUS NRP -->
     <div id="tab-search" class="tab-content">
         <div class="search-area">
-            <h2 style="font-size: 1.3rem; font-weight: 700; color: var(--text-primary);">Pencarian Status Individu</h2>
-            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.4;">Masukkan NRP lengkap Anda di bawah untuk memverifikasi status pemesanan Jaket Himpunan secara privat.</p>
+            <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--text-primary);">Cari NRP Kamu</h2>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">Masukkan NRP kamu di bawah untuk melihat status kelulusan KPP dan pemesanan Jaket Himpunan secara langsung.</p>
             
             <div class="search-field">
                 <input type="text" id="nrpInput" class="search-input" placeholder="Contoh: 5026241004" autocomplete="off" onkeydown="if(event.key === 'Enter') cekStatus()">
-                <button onclick="cekStatus()" class="btn-search">Cari</button>
+                <button onclick="cekStatus()" class="btn-search">Cek Status</button>
             </div>
             
             <div id="errorAlert" class="alert-box"></div>
@@ -1094,7 +1174,7 @@
         <div class="result-panel">
             <div id="resultPlaceholder" class="result-placeholder">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                <p>Silakan lakukan pencarian menggunakan NRP Anda di atas.</p>
+                <p>Tulis NRP kamu pada kolom di atas untuk melihat status kelulusan.</p>
             </div>
 
             <!-- Konten detail mahasiswa setelah dicari -->
@@ -1112,7 +1192,7 @@
                 <div class="bars-container">
                     <div class="bar-group">
                         <div class="bar-info">
-                            <span class="bar-label">Nilai Capaian KPP</span>
+                            <span class="bar-label">Nilai KPP</span>
                             <span id="resKppText" class="bar-val">0 / 100</span>
                         </div>
                         <div class="bar-track">
@@ -1122,7 +1202,7 @@
 
                     <div class="bar-group">
                         <div class="bar-info">
-                            <span class="bar-label">Nilai Konsekuensi KPP</span>
+                            <span class="bar-label">Nilai Konsekuensi</span>
                             <span id="resKonsekText" class="bar-val">0 / 100</span>
                         </div>
                         <div class="bar-track">
@@ -1132,7 +1212,7 @@
 
                     <div class="bar-group">
                         <div class="bar-info">
-                            <span class="bar-label">Nilai Total Akhir</span>
+                            <span class="bar-label">Nilai Akhir</span>
                             <span id="resTotalText" class="bar-val">0 / 100</span>
                         </div>
                         <div class="bar-track">
@@ -1154,11 +1234,11 @@
     // Memuat data.json dan source.json secara paralel menggunakan Promise.all
     Promise.all([
         fetch('data.json').then(res => {
-            if (!res.ok) throw new Error('Gagal memuat basis data mahasiswa (data.json)');
+            if (!res.ok) throw new Error('Gagal memuat data mahasiswa (data.json)');
             return res.json();
         }),
         fetch('source.json').then(res => {
-            if (!res.ok) throw new Error('Gagal memuat file ketentuan (source.json)');
+            if (!res.ok) throw new Error('Gagal memuat kriteria aturan (source.json)');
             return res.json();
         })
     ])
@@ -1296,7 +1376,7 @@
                 if (linkSource && typeof linkSource === 'string' && linkSource.startsWith('http')) {
                     actionLink = `<a href="${linkSource}" target="_blank" class="link-btn">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                        Bukti Tautan
+                        Spreadsheet
                     </a>`;
                 }
 
@@ -1304,8 +1384,8 @@
                 tr.innerHTML = `
                     <td data-label="Nama Program" style="font-weight: 600; color: var(--text-primary);">${titleName}</td>
                     <td data-label="Detail Syarat" style="color: var(--text-secondary);">${detailText}</td>
-                    <td data-label="Bobot" style="text-align: center; font-weight: 600; color: var(--primary);">${weight !== undefined ? (weight * 100) + '%' : '-'}</td>
-                    <td data-label="Tautan Bukti" style="text-align: center;">${actionLink}</td>
+                    <td data-label="Bobot" style="text-align: center; font-weight: 600; color: var(--primary-dark);">${weight !== undefined ? (weight * 100) + '%' : '-'}</td>
+                    <td data-label="Link Spreadsheet" style="text-align: center;">${actionLink}</td>
                 `;
                 kppBody.appendChild(tr);
             }
@@ -1329,7 +1409,7 @@
                 if (linkSource && typeof linkSource === 'string' && linkSource.startsWith('http')) {
                     actionLink = `<a href="${linkSource}" target="_blank" class="link-btn">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                        Bukti Tautan
+                        Spreadsheet
                     </a>`;
                 }
 
@@ -1337,8 +1417,8 @@
                 tr.innerHTML = `
                     <td data-label="Nama Program" style="font-weight: 600; color: var(--text-primary);">${titleName}</td>
                     <td data-label="Detail Syarat" style="color: var(--text-secondary);">${detailText}</td>
-                    <td data-label="Bobot" style="text-align: center; font-weight: 600; color: var(--warning);">${weight !== undefined ? (weight * 100) + '%' : '-'}</td>
-                    <td data-label="Tautan Bukti" style="text-align: center;">${actionLink}</td>
+                    <td data-label="Bobot" style="text-align: center; font-weight: 600; color: var(--warning-dark);">${weight !== undefined ? (weight * 100) + '%' : '-'}</td>
+                    <td data-label="Link Spreadsheet" style="text-align: center;">${actionLink}</td>
                 `;
                 konsekBody.appendChild(tr);
             }
@@ -1417,13 +1497,13 @@
         placeholder.style.display = 'flex';
 
         if (mahasiswaData.length === 0) {
-            errorAlert.innerText = "Basis data kosong atau belum berhasil dimuat.";
+            errorAlert.innerText = "Data mahasiswa belum selesai dimuat. Silakan tunggu sebentar.";
             errorAlert.style.display = 'block';
             return;
         }
 
         if (!nrpInput) {
-            errorAlert.innerText = "Masukkan NRP lengkap terlebih dahulu!";
+            errorAlert.innerText = "Tolong masukkan NRP kamu terlebih dahulu.";
             errorAlert.style.display = 'block';
             return;
         }
@@ -1455,10 +1535,10 @@
             const statusJahim = String(mhs["__19"]).trim();
             const resJahimBadge = document.getElementById('resJahimBadge');
             if (statusJahim === "PO JAHIM") {
-                resJahimBadge.innerText = "Boleh PO Jahim";
+                resJahimBadge.innerText = "Bisa PO Jahim";
                 resJahimBadge.className = "badge primary";
             } else {
-                resJahimBadge.innerText = "Tidak Boleh PO Jahim";
+                resJahimBadge.innerText = "Belum Bisa PO";
                 resJahimBadge.className = "badge danger";
             }
 
@@ -1487,7 +1567,7 @@
             updateBarColorClass(totalFill, total);
 
         } else {
-            errorAlert.innerText = "NRP tidak ditemukan di database. Pastikan inputan benar!";
+            errorAlert.innerText = "NRP kamu tidak ditemukan. Coba periksa kembali ketikannya ya!";
             errorAlert.style.display = 'block';
         }
     }
@@ -1561,7 +1641,7 @@
         </button>
         <button class="sidebar-link" onclick="handleSidebarTabClick('tab-search', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            Cek Hasil Akhir
+            Cek Status NRP
         </button>
     </div>
 </div>
