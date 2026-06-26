@@ -594,22 +594,22 @@
         .sidebar-menu {
             position: fixed;
             top: 0;
-            right: -280px;
+            left: -280px;
             width: 260px;
             height: 100vh;
             background: #ffffff;
-            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.05);
             z-index: 1001;
-            transition: right 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             padding: 24px 16px;
             display: flex;
             flex-direction: column;
             gap: 20px;
-            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
         }
 
         .sidebar-menu.active {
-            right: 0;
+            left: 0;
         }
 
         .sidebar-header {
@@ -701,9 +701,10 @@
             }
 
             header {
-                flex-direction: row;
-                justify-content: space-between;
+                flex-direction: row-reverse;
+                justify-content: flex-end;
                 align-items: center;
+                gap: 15px;
             }
 
             .header-title {
