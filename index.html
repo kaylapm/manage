@@ -542,6 +542,173 @@
             text-align: left;
             margin-top: 10px;
         }
+
+        /* CSS Responsif untuk Mobile Friendly */
+        @media (max-width: 640px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            .app-container {
+                gap: 15px;
+            }
+
+            header h1 {
+                font-size: 1.6rem;
+            }
+
+            header p {
+                font-size: 0.88rem;
+                line-height: 1.4;
+            }
+
+            .nav-tabs {
+                padding: 2px;
+                border-radius: 10px;
+                gap: 2px;
+            }
+
+            .nav-tab {
+                padding: 10px 8px;
+                font-size: 0.8rem;
+                gap: 4px;
+                border-radius: 6px;
+            }
+
+            .nav-tab svg {
+                width: 14px;
+                height: 14px;
+            }
+
+            .card-panel {
+                padding: 16px;
+                border-radius: 12px;
+                margin-bottom: 12px;
+            }
+
+            .card-title {
+                font-size: 1rem;
+                margin-bottom: 12px;
+                padding-bottom: 8px;
+            }
+
+            .rules-hero {
+                padding: 12px 14px;
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+
+            .rules-hero h3 {
+                font-size: 0.95rem;
+            }
+
+            .rules-hero p {
+                font-size: 0.85rem;
+                line-height: 1.4;
+            }
+
+            /* Mengubah table menjadi tampilan block (card-list) di mobile */
+            .rules-table, 
+            .rules-table thead, 
+            .rules-table tbody, 
+            .rules-table th, 
+            .rules-table td, 
+            .rules-table tr {
+                display: block;
+            }
+
+            .rules-table thead {
+                display: none; /* Sembunyikan header tabel di mobile */
+            }
+
+            .rules-table tr {
+                border-bottom: 1px solid var(--border-color);
+                padding: 12px 0;
+            }
+
+            .rules-table tr:last-child {
+                border-bottom: none;
+            }
+
+            .rules-table td {
+                border: none;
+                padding: 6px 8px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: right;
+            }
+
+            .rules-table td::before {
+                content: attr(data-label);
+                font-weight: 700;
+                color: var(--text-secondary);
+                text-align: left;
+                font-size: 0.8rem;
+            }
+
+            /* Kolom pertama (Nama Program) dibuat penuh dan tanpa label */
+            .rules-table td:first-child {
+                font-weight: 700;
+                font-size: 0.92rem;
+                display: block;
+                text-align: left;
+                margin-bottom: 6px;
+                padding-bottom: 4px;
+                border-bottom: 1px dashed #f1f5f9;
+            }
+
+            .rules-table td:first-child::before {
+                display: none;
+            }
+
+            /* Dashboard Layout */
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 16px;
+                border-radius: 12px;
+            }
+
+            .stat-value {
+                font-size: 1.6rem;
+            }
+
+            .stat-label {
+                font-size: 0.8rem;
+            }
+
+            /* Tab 3 Cek Status */
+            .search-area {
+                gap: 8px;
+            }
+
+            .search-input {
+                padding: 12px 14px;
+                font-size: 0.95rem;
+            }
+
+            .btn-search {
+                padding: 0 16px;
+                font-size: 0.9rem;
+            }
+
+            .result-panel {
+                padding: 16px;
+                border-radius: 12px;
+            }
+
+            .result-header h2 {
+                font-size: 1.15rem;
+            }
+
+            .result-placeholder {
+                padding: 20px 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -953,10 +1120,10 @@
 
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td style="font-weight: 600; color: var(--text-primary);">${titleName}</td>
-                    <td style="color: var(--text-secondary);">${detailText}</td>
-                    <td style="text-align: center; font-weight: 600; color: var(--primary);">${weight !== undefined ? (weight * 100) + '%' : '-'}</td>
-                    <td style="text-align: center;">${actionLink}</td>
+                    <td data-label="Nama Program" style="font-weight: 600; color: var(--text-primary);">${titleName}</td>
+                    <td data-label="Detail Syarat" style="color: var(--text-secondary);">${detailText}</td>
+                    <td data-label="Bobot" style="text-align: center; font-weight: 600; color: var(--primary);">${weight !== undefined ? (weight * 100) + '%' : '-'}</td>
+                    <td data-label="Tautan Bukti" style="text-align: center;">${actionLink}</td>
                 `;
                 kppBody.appendChild(tr);
             }
@@ -986,10 +1153,10 @@
 
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td style="font-weight: 600; color: var(--text-primary);">${titleName}</td>
-                    <td style="color: var(--text-secondary);">${detailText}</td>
-                    <td style="text-align: center; font-weight: 600; color: var(--warning);">${weight !== undefined ? (weight * 100) + '%' : '-'}</td>
-                    <td style="text-align: center;">${actionLink}</td>
+                    <td data-label="Nama Program" style="font-weight: 600; color: var(--text-primary);">${titleName}</td>
+                    <td data-label="Detail Syarat" style="color: var(--text-secondary);">${detailText}</td>
+                    <td data-label="Bobot" style="text-align: center; font-weight: 600; color: var(--warning);">${weight !== undefined ? (weight * 100) + '%' : '-'}</td>
+                    <td data-label="Tautan Bukti" style="text-align: center;">${actionLink}</td>
                 `;
                 konsekBody.appendChild(tr);
             }
