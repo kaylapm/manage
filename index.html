@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Status PO Jahim MANAGE 2025</title>
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-base: #f8fafc;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+            
+            --primary: #2563eb;
+            --primary-light: #eff6ff;
+            --success: #16a34a;
+            --success-light: #f0fdf4;
+            --danger: #dc2626;
+            --danger-light: #fef2f2;
+            --warning: #d97706;
+            --warning-light: #fffbeb;
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 35px 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 5px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Navigation Menu Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            gap: 4px;
+            margin-bottom: 5px;
+        }
+
+        .nav-tab {
+            flex: 1;
+            max-width: 250px;
+            padding: 12px 16px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .nav-tab:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-tab.active {
+            background: var(--bg-card);
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Tab Content Containers */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Card Layout Panels */
+        .card-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .card-title svg {
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        /* Tab 1: Ketentuan Styles */
+        .rules-hero {
+            background: var(--primary-light);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .rules-hero svg {
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .rules-hero h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .rules-hero p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .rules-table-container {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow-x: auto;
+            background: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .rules-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .rules-table th {
+            padding: 12px 16px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: #f8fafc;
+            border-bottom: 1.5px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        .rules-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .rules-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Link Evidence Button */
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .link-btn:hover {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+
+        .link-disabled {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+
+        /* Tab 2: Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .stat-sub {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .stat-sub strong {
+            color: var(--text-secondary);
+        }
+
+        /* Radial Charts */
+        .radial-container {
+            position: relative;
+            width: 76px;
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .radial-container svg {
+            transform: rotate(-90deg);
+        }
+
+        .radial-bg {
+            fill: none;
+            stroke: #f1f5f9;
+            stroke-width: 6;
+        }
+
+        .radial-bar {
+            fill: none;
+            stroke-width: 6;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.8s ease-in-out;
+        }
+
+        .radial-text {
+            position: absolute;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Tab 3: Search & Result styles */
+        .search-area {
+            max-width: 500px;
+            margin: 0 auto 25px auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .search-field {
+            display: flex;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .search-field:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            color: var(--text-primary);
+            background: #ffffff;
+        }
+
+        .btn-search {
+            padding: 0 24px;
+            background: var(--primary);
+            border: none;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-search:hover {
+            background: #1d4ed8;
+        }
+
+        /* Result Panel Clean Layout */
+        .result-panel {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            background: #ffffff;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .result-placeholder {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .result-placeholder svg {
+            width: 48px;
+            height: 48px;
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        .result-card {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .result-header {
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .result-header h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .result-header p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .badge-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge.success {
+            background-color: var(--success-light);
+            color: var(--success);
+            border: 1px solid rgba(22, 163, 74, 0.2);
+        }
+
+        .badge.danger {
+            background-color: var(--danger-light);
+            color: var(--danger);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .badge.primary {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        /* Linear Progress Bars */
+        .bars-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .bar-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .bar-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+
+        .bar-label {
+            color: var(--text-secondary);
+        }
+
+        .bar-val {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .bar-track {
+            height: 8px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 8px;
+            width: 0%;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bar-fill.blue { background-color: var(--primary); }
+        .bar-fill.green { background-color: var(--success); }
+        .bar-fill.orange { background-color: var(--warning); }
+
+        /* Global Alert box */
+        .alert-box {
+            display: none;
+            background-color: var(--danger-light);
+            border: 1px solid rgba(220, 38, 38, 0.15);
+            color: var(--danger);
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            text-align: left;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <header>
+        <h1>Sistem Status PO Jahim MANAGE 2025</h1>
+        <p>Portal verifikasi kelulusan KPP dan Konsekuensi KPP untuk pemesanan Jaket Himpunan</p>
+    </header>
+
+    <!-- Navigation Menu Tabs -->
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="switchTab('tab-rules', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            Ketentuan & Aturan
+        </button>
+        <button class="nav-tab" onclick="switchTab('tab-dashboard', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+            Dashboard Statistik
+        </button>
+        <button class="nav-tab" onclick="switchTab('tab-search', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            Cek Hasil Akhir
+        </button>
+    </div>
+
+    <!-- TAB 1: KETENTUAN & ATURAN -->
+    <div id="tab-rules" class="tab-content active">
+        <!-- Card Ketentuan Utama -->
+        <div class="card-panel">
+            <div class="card-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <span>Ketentuan Pemesanan Jaket Himpunan (Jahim)</span>
+            </div>
+            
+            <div class="rules-hero">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <div>
+                    <h3>Syarat Utama Pemesanan Jaket Himpunan</h3>
+                    <p>Jaket Himpunan (Jahim) diperbolehkan dipesan apabila mahasiswa dinyatakan memenuhi kriteria kelulusan KPP & Konsekuensi KPP dengan nilai ambang batas **Nilai Total Akhir minimal <span id="textThreshold">75</span>**.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabel Ketentuan KPP -->
+        <div class="card-panel">
+            <div class="card-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span>Persyaratan Kelulusan KPP (Kinerja & Partisipasi Program)</span>
+                <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); background: #f1f5f9; padding: 4px 10px; border-radius: 20px; margin-left: auto;">Bobot Total: 50%</span>
+            </div>
+            
+            <div class="rules-table-container">
+                <table class="rules-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Nama Program</th>
+                            <th style="width: 45%;">Ketentuan Detail / Syarat Minimal</th>
+                            <th style="width: 12%; text-align: center;">Bobot</th>
+                            <th style="width: 18%; text-align: center;">Tautan Bukti</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rulesKppBody">
+                        <tr>
+                            <td colspan="4" style="text-align: center; color: var(--text-muted); padding: 30px;">Memuat data ketentuan KPP...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tabel Ketentuan Konsekuensi -->
+        <div class="card-panel">
+            <div class="card-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <span>Persyaratan Konsekuensi KPP</span>
+                <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); background: #f1f5f9; padding: 4px 10px; border-radius: 20px; margin-left: auto;">Bobot Total: 50%</span>
+            </div>
+
+            <div class="rules-table-container">
+                <table class="rules-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Nama Program</th>
+                            <th style="width: 45%;">Ketentuan Detail / Syarat Minimal</th>
+                            <th style="width: 12%; text-align: center;">Bobot</th>
+                            <th style="width: 18%; text-align: center;">Tautan Bukti</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rulesKonsekBody">
+                        <tr>
+                            <td colspan="4" style="text-align: center; color: var(--text-muted); padding: 30px;">Memuat data ketentuan Konsekuensi...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: DASHBOARD STATISTIK -->
+    <div id="tab-dashboard" class="tab-content">
+        <div class="app-container" style="gap: 20px; padding: 0;">
+            <!-- Grid Rangkuman Utama -->
+            <div class="dashboard-grid">
+                <!-- Card 1: Total Mahasiswa -->
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <span class="stat-label">Total Mahasiswa</span>
+                        <span class="stat-value" id="dashTotal">-</span>
+                        <span class="stat-sub">Jumlah entri mahasiswa terdaftar</span>
+                    </div>
+                    <div style="background: var(--primary-light); padding: 14px; border-radius: 12px; color: var(--primary)">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                </div>
+
+                <!-- Card 2: Kelulusan Warga -->
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <span class="stat-label">Kelulusan Warga</span>
+                        <span class="stat-value" id="dashWargaVal">-</span>
+                        <span class="stat-sub"><strong id="dashWargaCount">0</strong> dari total lulus jadi Warga</span>
+                    </div>
+                    <div class="radial-container">
+                        <svg width="76" height="76">
+                            <circle class="radial-bg" cx="38" cy="38" r="30"/>
+                            <circle class="radial-bar" id="circleWarga" cx="38" cy="38" r="30" stroke="var(--success)" stroke-dasharray="188.5" stroke-dashoffset="188.5"/>
+                        </svg>
+                        <span class="radial-text" id="dashWargaPercent">-</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Kelayakan PO Jahim -->
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <span class="stat-label">Boleh PO Jahim</span>
+                        <span class="stat-value" id="dashJahimVal">-</span>
+                        <span class="stat-sub"><strong id="dashJahimCount">0</strong> orang memenuhi syarat</span>
+                    </div>
+                    <div class="radial-container">
+                        <svg width="76" height="76">
+                            <circle class="radial-bg" cx="38" cy="38" r="30"/>
+                            <circle class="radial-bar" id="circleJahim" cx="38" cy="38" r="30" stroke="var(--primary)" stroke-dasharray="188.5" stroke-dashoffset="188.5"/>
+                        </svg>
+                        <span class="radial-text" id="dashJahimPercent">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Rata-rata Nilai Angkatan (Peningkatan Visual) -->
+            <div class="card-panel">
+                <div class="card-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    <span>Rata-rata Capaian Nilai Angkatan 2024</span>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">Perbandingan rata-rata akumulasi nilai seluruh mahasiswa terdaftar untuk nilai KPP, Konsekuensi KPP, dan Nilai Total Akhir.</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <!-- Rerata KPP -->
+                    <div style="background: #f8fafc; padding: 20px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+                        <div class="bar-info">
+                            <span class="bar-label" style="font-weight: 600; color: var(--text-primary);">Rata-rata Nilai KPP</span>
+                            <span id="avgKppVal" class="bar-val" style="color: var(--primary); font-size: 1.25rem;">-</span>
+                        </div>
+                        <div class="bar-track" style="margin-top: 10px; background: #e2e8f0; height: 10px;">
+                            <div id="avgKppFill" class="bar-fill blue" style="height: 100%;"></div>
+                        </div>
+                        <span style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-top: 6px;">Berdasarkan bobot KPP 50%</span>
+                    </div>
+                    
+                    <!-- Rerata Konsekuensi -->
+                    <div style="background: #f8fafc; padding: 20px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+                        <div class="bar-info">
+                            <span class="bar-label" style="font-weight: 600; color: var(--text-primary);">Rata-rata Konsekuensi KPP</span>
+                            <span id="avgKonsekVal" class="bar-val" style="color: var(--warning); font-size: 1.25rem;">-</span>
+                        </div>
+                        <div class="bar-track" style="margin-top: 10px; background: #e2e8f0; height: 10px;">
+                            <div id="avgKonsekFill" class="bar-fill orange" style="height: 100%;"></div>
+                        </div>
+                        <span style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-top: 6px;">Berdasarkan bobot Konsekuensi 50%</span>
+                    </div>
+                    
+                    <!-- Rerata Total Akhir -->
+                    <div style="background: #f8fafc; padding: 20px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+                        <div class="bar-info">
+                            <span class="bar-label" style="font-weight: 600; color: var(--text-primary);">Rata-rata Nilai Total Akhir</span>
+                            <span id="avgTotalVal" class="bar-val" style="color: var(--success); font-size: 1.25rem;">-</span>
+                        </div>
+                        <div class="bar-track" style="margin-top: 10px; background: #e2e8f0; height: 10px;">
+                            <div id="avgTotalFill" class="bar-fill green" style="height: 100%;"></div>
+                        </div>
+                        <span style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-top: 6px;">Standar PO Jahim: 75.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: CEK STATUS NRP -->
+    <div id="tab-search" class="tab-content">
+        <div class="search-area">
+            <h2 style="font-size: 1.3rem; font-weight: 700; color: var(--text-primary);">Pencarian Status Individu</h2>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.4;">Masukkan NRP lengkap Anda di bawah untuk memverifikasi status pemesanan Jaket Himpunan secara privat.</p>
+            
+            <div class="search-field">
+                <input type="text" id="nrpInput" class="search-input" placeholder="Contoh: 5026241004" autocomplete="off" onkeydown="if(event.key === 'Enter') cekStatus()">
+                <button onclick="cekStatus()" class="btn-search">Cari</button>
+            </div>
+            
+            <div id="errorAlert" class="alert-box"></div>
+        </div>
+
+        <div class="result-panel">
+            <div id="resultPlaceholder" class="result-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <p>Silakan lakukan pencarian menggunakan NRP Anda di atas.</p>
+            </div>
+
+            <!-- Konten detail mahasiswa setelah dicari -->
+            <div id="resultCard" class="result-card">
+                <div class="result-header">
+                    <h2 id="resNama">-</h2>
+                    <p id="resNrp">NRP: -</p>
+                </div>
+
+                <div class="badge-row">
+                    <span id="resWargaBadge" class="badge">-</span>
+                    <span id="resJahimBadge" class="badge">-</span>
+                </div>
+
+                <div class="bars-container">
+                    <div class="bar-group">
+                        <div class="bar-info">
+                            <span class="bar-label">Nilai Capaian KPP</span>
+                            <span id="resKppText" class="bar-val">0 / 100</span>
+                        </div>
+                        <div class="bar-track">
+                            <div id="resKppFill" class="bar-fill blue"></div>
+                        </div>
+                    </div>
+
+                    <div class="bar-group">
+                        <div class="bar-info">
+                            <span class="bar-label">Nilai Konsekuensi KPP</span>
+                            <span id="resKonsekText" class="bar-val">0 / 100</span>
+                        </div>
+                        <div class="bar-track">
+                            <div id="resKonsekFill" class="bar-fill orange"></div>
+                        </div>
+                    </div>
+
+                    <div class="bar-group">
+                        <div class="bar-info">
+                            <span class="bar-label">Nilai Total Akhir</span>
+                            <span id="resTotalText" class="bar-val">0 / 100</span>
+                        </div>
+                        <div class="bar-track">
+                            <div id="resTotalFill" class="bar-fill green"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let rawData = [];
+    let mahasiswaData = [];
+    let sourceData = [];
+    let thresholdPO = 75; // Default fallback threshold
+
+    // Memuat data.json dan source.json secara paralel menggunakan Promise.all
+    Promise.all([
+        fetch('data.json').then(res => {
+            if (!res.ok) throw new Error('Gagal memuat basis data mahasiswa (data.json)');
+            return res.json();
+        }),
+        fetch('source.json').then(res => {
+            if (!res.ok) throw new Error('Gagal memuat file ketentuan (source.json)');
+            return res.json();
+        })
+    ])
+    .then(([data, source]) => {
+        rawData = data;
+        sourceData = source;
+        
+        // Filter baris data mahasiswa valid (memiliki NRP numerik)
+        mahasiswaData = data.filter(item => {
+            const nrp = String(item["__3"]).trim();
+            return nrp && !isNaN(nrp) && nrp !== "";
+        });
+
+        console.log("Database dimuat:", mahasiswaData.length, "mahasiswa.");
+        
+        // Ekstrak parameter dari file JSON dan source.json
+        parseRulesAndParameters();
+        
+        // Inisialisasi statistik dashboard
+        initDashboard();
+    })
+    .catch(error => {
+        console.error('Error loading JSON files:', error);
+        showGlobalError();
+    });
+
+    function showGlobalError() {
+        const errorAlert = document.getElementById('errorAlert');
+        errorAlert.innerHTML = `
+            <strong>Gagal Memuat File data.json atau source.json!</strong><br>
+            <span style="font-size: 0.8rem; margin-top: 4px; display: block; opacity: 0.85; line-height: 1.4;">
+                Browser memblokir pembacaan file JSON eksternal dari protokol <code>file://</code> (keamanan CORS).<br>
+                Silakan jalankan menggunakan **Local Server** (Live Server di VS Code atau Python HTTP Server dengan <code>python -m http.server 8000</code>).
+            </span>
+        `;
+        errorAlert.style.display = 'block';
+    }
+
+    // Fungsi pemindahan Tab Menu
+    function switchTab(tabId, element) {
+        // Hapus active class dari semua tab button dan tab content
+        document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+        // Tambah active class pada tab dan kontainer yang dipilih
+        element.classList.add('active');
+        const activeTab = document.getElementById(tabId);
+        activeTab.classList.add('active');
+
+        // Khusus tab dashboard, jalankan animasi ulang progress circle
+        if (tabId === 'tab-dashboard') {
+            initDashboard();
+        }
+    }
+
+    // Memetakan source.json dengan data.json untuk menampilkan aturan secara terperinci
+    function parseRulesAndParameters() {
+        if (rawData.length < 3) return;
+
+        const headerRow = rawData[0];
+        const bobotRow = rawData[2];
+
+        // Membaca threshold PO Jahim secara dinamis dari baris Bobot kolom "__19"
+        if (bobotRow && bobotRow["__19"] !== undefined) {
+            thresholdPO = parseFloat(bobotRow["__19"]) || 75;
+            document.getElementById('textThreshold').innerText = thresholdPO;
+        }
+
+        // Parse list aturan dari source.json
+        let sourceKppItems = [];
+        let sourceKonsekItems = [];
+        let currentSection = '';
+
+        sourceData.forEach(item => {
+            const sk = String(item["SK"]).trim();
+            if (sk === "KPP") {
+                currentSection = 'KPP';
+                return;
+            }
+            if (sk === "Konsekuensi") {
+                currentSection = 'Konsekuensi';
+                return;
+            }
+            if (sk === "TnC" || sk === "Total") {
+                return;
+            }
+            
+            // Masukkan item yang memiliki bobot atau keterangan
+            if (item["SK MANAGE 2025"] === "" && sk === "") {
+                return;
+            }
+            
+            const rule = {
+                name: sk,
+                bobot: item["SK MANAGE 2025"],
+                source: item[""]
+            };
+            
+            if (currentSection === 'KPP') {
+                sourceKppItems.push(rule);
+            } else if (currentSection === 'Konsekuensi') {
+                sourceKonsekItems.push(rule);
+            }
+        });
+
+        // RENDER KETENTUAN KPP
+        const kppKeys = ['KPP', '__5', '__6', '__7', '__8', '__9', '__10', '__11'];
+        const kppBody = document.getElementById('rulesKppBody');
+        kppBody.innerHTML = '';
+        
+        kppKeys.forEach((key, idx) => {
+            const titleName = headerRow[key];
+            const sourceRuleObj = sourceKppItems[idx];
+            
+            if (titleName && sourceRuleObj) {
+                // Gunakan teks detail dari source.json jika tersedia, jika kosong gunakan header
+                const detailText = sourceRuleObj.name || titleName;
+                const weight = sourceRuleObj.bobot;
+                const linkSource = sourceRuleObj.source;
+
+                // Render tombol link jika ada URL Google Docs/Spreadsheet yang valid
+                let actionLink = `<span class="link-disabled">-</span>`;
+                if (linkSource && typeof linkSource === 'string' && linkSource.startsWith('http')) {
+                    actionLink = `<a href="${linkSource}" target="_blank" class="link-btn">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        Bukti Tautan
+                    </a>`;
+                }
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight: 600; color: var(--text-primary);">${titleName}</td>
+                    <td style="color: var(--text-secondary);">${detailText}</td>
+                    <td style="text-align: center; font-weight: 600; color: var(--primary);">${weight !== undefined ? (weight * 100) + '%' : '-'}</td>
+                    <td style="text-align: center;">${actionLink}</td>
+                `;
+                kppBody.appendChild(tr);
+            }
+        });
+
+        // RENDER KETENTUAN KONSEKUENSI
+        const konsekKeys = ['KONSEKUENSI', '__12', '__13', '__14', '__15', '__16'];
+        const konsekBody = document.getElementById('rulesKonsekBody');
+        konsekBody.innerHTML = '';
+
+        konsekKeys.forEach((key, idx) => {
+            const titleName = headerRow[key];
+            const sourceRuleObj = sourceKonsekItems[idx];
+
+            if (titleName && sourceRuleObj) {
+                const detailText = sourceRuleObj.name || titleName;
+                const weight = sourceRuleObj.bobot;
+                const linkSource = sourceRuleObj.source;
+
+                let actionLink = `<span class="link-disabled">-</span>`;
+                if (linkSource && typeof linkSource === 'string' && linkSource.startsWith('http')) {
+                    actionLink = `<a href="${linkSource}" target="_blank" class="link-btn">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        Bukti Tautan
+                    </a>`;
+                }
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight: 600; color: var(--text-primary);">${titleName}</td>
+                    <td style="color: var(--text-secondary);">${detailText}</td>
+                    <td style="text-align: center; font-weight: 600; color: var(--warning);">${weight !== undefined ? (weight * 100) + '%' : '-'}</td>
+                    <td style="text-align: center;">${actionLink}</td>
+                `;
+                konsekBody.appendChild(tr);
+            }
+        });
+    }
+
+    // Menginisialisasi & menghitung data dashboard statistik
+    function initDashboard() {
+        if (mahasiswaData.length === 0) return;
+
+        const total = mahasiswaData.length;
+        
+        // Hitung Kelulusan Warga
+        const lulusCount = mahasiswaData.filter(m => String(m["__4"]).trim() === "LULUS").length;
+        const lulusPercent = total > 0 ? ((lulusCount / total) * 100).toFixed(1) : 0;
+        
+        // Hitung Kelayakan PO Jahim
+        const poCount = mahasiswaData.filter(m => String(m["__19"]).trim() === "PO JAHIM").length;
+        const poPercent = total > 0 ? ((poCount / total) * 100).toFixed(1) : 0;
+
+        // Tulis nilai ke UI (KPI Utama)
+        document.getElementById('dashTotal').innerText = total;
+        
+        document.getElementById('dashWargaVal').innerText = lulusPercent + "%";
+        document.getElementById('dashWargaCount').innerText = lulusCount;
+        document.getElementById('dashWargaPercent').innerText = Math.round(lulusPercent) + "%";
+        
+        document.getElementById('dashJahimVal').innerText = poPercent + "%";
+        document.getElementById('dashJahimCount').innerText = poCount;
+        document.getElementById('dashJahimPercent').innerText = Math.round(poPercent) + "%";
+
+        // Hitung Rata-rata Nilai Angkatan 2024
+        const avgKpp = total > 0 ? (mahasiswaData.reduce((sum, m) => sum + (parseFloat(m["Penilaian"]) || 0), 0) / total) : 0;
+        const avgKonsek = total > 0 ? (mahasiswaData.reduce((sum, m) => sum + (parseFloat(m["__17"]) || 0), 0) / total) : 0;
+        const avgTotal = total > 0 ? (mahasiswaData.reduce((sum, m) => sum + (parseFloat(m["__18"]) || 0), 0) / total) : 0;
+
+        // Update Nilai Rata-rata & Bar Progres di UI
+        document.getElementById('avgKppVal').innerText = avgKpp.toFixed(1) + " / 100";
+        document.getElementById('avgKonsekVal').innerText = avgKonsek.toFixed(1) + " / 100";
+        document.getElementById('avgTotalVal').innerText = avgTotal.toFixed(1) + " / 100";
+
+        document.getElementById('avgKppFill').style.width = avgKpp + "%";
+        document.getElementById('avgKonsekFill').style.width = avgKonsek + "%";
+        document.getElementById('avgTotalFill').style.width = avgTotal + "%";
+
+        // Animate circular progress rings
+        animateProgressCircle('circleWarga', parseFloat(lulusPercent));
+        animateProgressCircle('circleJahim', parseFloat(poPercent));
+    }
+
+    function animateProgressCircle(elementId, percentage) {
+        const circle = document.getElementById(elementId);
+        if (!circle) return;
+        const r = circle.r.baseVal.value;
+        const circumference = 2 * Math.PI * r;
+        
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = circumference;
+        
+        setTimeout(() => {
+            const offset = circumference - (percentage / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+        }, 150);
+    }
+
+    // Fungsi Cek Kelayakan PO Jahim berdasarkan NRP
+    function cekStatus() {
+        const nrpInput = document.getElementById('nrpInput').value.trim();
+        const errorAlert = document.getElementById('errorAlert');
+        const placeholder = document.getElementById('resultPlaceholder');
+        const card = document.getElementById('resultCard');
+
+        // Reset tampilan awal
+        errorAlert.style.display = 'none';
+        card.style.display = 'none';
+        placeholder.style.display = 'flex';
+
+        if (mahasiswaData.length === 0) {
+            errorAlert.innerText = "Basis data kosong atau belum berhasil dimuat.";
+            errorAlert.style.display = 'block';
+            return;
+        }
+
+        if (!nrpInput) {
+            errorAlert.innerText = "Masukkan NRP lengkap terlebih dahulu!";
+            errorAlert.style.display = 'block';
+            return;
+        }
+
+        // Cari mahasiswa berdasarkan NRP
+        const mhs = mahasiswaData.find(item => String(item["__3"]) === nrpInput);
+
+        if (mhs) {
+            placeholder.style.display = 'none';
+            card.style.display = 'block';
+
+            // Menampilkan Nama Lengkap secara utuh
+            const rawName = mhs["__2"] || "Mahasiswa Terdaftar";
+            document.getElementById('resNama').innerText = rawName;
+            document.getElementById('resNrp').innerText = "NRP: " + (mhs["__3"] || "-");
+
+            // Status Warga Badge
+            const statusWarga = String(mhs["__4"]).trim();
+            const resWargaBadge = document.getElementById('resWargaBadge');
+            if (statusWarga === "LULUS") {
+                resWargaBadge.innerText = "Warga";
+                resWargaBadge.className = "badge success";
+            } else {
+                resWargaBadge.innerText = "Non-Warga";
+                resWargaBadge.className = "badge danger";
+            }
+
+            // Status PO Jahim Badge
+            const statusJahim = String(mhs["__19"]).trim();
+            const resJahimBadge = document.getElementById('resJahimBadge');
+            if (statusJahim === "PO JAHIM") {
+                resJahimBadge.innerText = "Boleh PO Jahim";
+                resJahimBadge.className = "badge primary";
+            } else {
+                resJahimBadge.innerText = "Tidak Boleh PO Jahim";
+                resJahimBadge.className = "badge danger";
+            }
+
+            // KPP bar
+            const kpp = parseFloat(mhs["Penilaian"]) || 0;
+            document.getElementById('resKppText').innerText = kpp + " / 100";
+            const kppFill = document.getElementById('resKppFill');
+            kppFill.style.width = '0%';
+            setTimeout(() => { kppFill.style.width = kpp + '%'; }, 100);
+            updateBarColorClass(kppFill, kpp);
+
+            // Konsekuensi bar
+            const konsek = parseFloat(mhs["__17"]) || 0;
+            document.getElementById('resKonsekText').innerText = konsek + " / 100";
+            const konsekFill = document.getElementById('resKonsekFill');
+            konsekFill.style.width = '0%';
+            setTimeout(() => { konsekFill.style.width = konsek + '%'; }, 100);
+            updateBarColorClass(konsekFill, konsek);
+
+            // Nilai Total Akhir bar
+            const total = parseFloat(mhs["__18"]) || 0;
+            document.getElementById('resTotalText').innerText = total + " / 100";
+            const totalFill = document.getElementById('resTotalFill');
+            totalFill.style.width = '0%';
+            setTimeout(() => { totalFill.style.width = total + '%'; }, 100);
+            updateBarColorClass(totalFill, total);
+
+        } else {
+            errorAlert.innerText = "NRP tidak ditemukan di database. Pastikan inputan benar!";
+            errorAlert.style.display = 'block';
+        }
+    }
+
+    function updateBarColorClass(element, score) {
+        element.className = "bar-fill";
+        if (score >= 75) {
+            element.classList.add('green');
+        } else if (score >= 50) {
+            element.classList.add('orange');
+        } else {
+            element.classList.add('blue');
+        }
+    }
+</script>
+</body>
+</html>
