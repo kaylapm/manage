@@ -622,6 +622,88 @@
         .bar-fill.green { background: linear-gradient(90deg, var(--success) 0%, var(--success-dark) 100%); }
         .bar-fill.orange { background: linear-gradient(90deg, var(--warning) 0%, var(--warning-dark) 100%); }
 
+        /* Tool Status Cards for Dashboard */
+        .tool-status-card {
+            background: #ffffff;
+            border: 1px solid var(--border-inner);
+            padding: 16px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-status-card:hover {
+            transform: translateY(-2px);
+            background: #ffffff !important;
+            border-color: rgba(99, 102, 241, 0.2);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Tool filter controls */
+        .filter-btn-group {
+            display: flex;
+            gap: 4px;
+            background: rgba(15, 23, 42, 0.05);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--border-inner);
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .filter-btn.active {
+            background: #ffffff;
+            color: var(--primary-dark);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Search input styling */
+        .tool-search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 250px;
+        }
+
+        .tool-search-input {
+            width: 100%;
+            padding: 10px 36px 10px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.75);
+            font-size: 0.9rem;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .tool-search-input:focus {
+            background: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
         /* Global Alert box */
         .alert-box {
             display: none;
@@ -949,6 +1031,31 @@
                 padding: 6px 12px;
                 font-size: 0.78rem;
             }
+
+            .sk-button-container {
+                padding-left: 0 !important;
+            }
+
+            /* Mobile adjustments for tool filters and search */
+            .tool-filter-section {
+                flex-direction: column;
+                align-items: stretch !important;
+                gap: 12px !important;
+            }
+
+            .filter-btn-group {
+                width: 100%;
+            }
+
+            .filter-btn {
+                flex: 1;
+                font-size: 0.82rem;
+                padding: 8px 10px;
+            }
+
+            .tool-search-container {
+                max-width: 100% !important;
+            }
         }
     </style>
 </head>
@@ -994,11 +1101,19 @@
                 <span>Ketentuan Pemesanan Jaket Himpunan</span>
             </div>
             
-            <div class="rules-hero">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                <div>
-                    <h3>Ketentuan Kelayakan PO</h3>
-                    <p>Jaket Himpunan (Jahim) bisa dipesan jika kamu memenuhi syarat kelulusan KPP & Konsekuensi dengan **Nilai Total Akhir minimal <span id="textThreshold">75</span>**.</p>
+            <div class="rules-hero" style="display: flex; flex-direction: column; align-items: flex-start; gap: 15px;">
+                <div style="display: flex; gap: 15px; align-items: flex-start;">
+                    <svg style="color: var(--primary-dark); flex-shrink: 0; margin-top: 2px;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    <div>
+                        <h3>Ketentuan Kelayakan PO</h3>
+                        <p>Jaket Himpunan (Jahim) bisa dipesan jika kamu memenuhi syarat kelulusan KPP & Konsekuensi dengan <strong>Nilai Total Akhir minimal <span id="textThreshold">75</span></strong>.</p>
+                    </div>
+                </div>
+                <div class="sk-button-container" style="padding-left: 39px; width: 100%;">
+                    <a href="https://docs.google.com/document/d/1JtZZ_5r7wnnCGwTaySKJ6wvQsorgV3DYBkcfFjTtc_c/edit?usp=sharing" target="_blank" class="link-btn" style="padding: 10px 18px; font-size: 0.9rem; gap: 8px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        Lihat SK Kelulusan MANAGE 2025
+                    </a>
                 </div>
             </div>
         </div>
@@ -1007,7 +1122,7 @@
         <div class="card-panel">
             <div class="card-title">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                <span>Kriteria Kelulusan KPP (Kinerja & Partisipasi Program)</span>
+                <span>Kriteria Kelulusan KPP</span>
                 <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); background: rgba(99, 102, 241, 0.08); padding: 4px 10px; border-radius: 20px; margin-left: auto;">Bobot Total: 50%</span>
             </div>
             
@@ -1075,12 +1190,12 @@
                     </div>
                 </div>
 
-                <!-- Card 2: Kelulusan Warga -->
+                <!-- Card 2: Kelulusan Warga Aktif -->
                 <div class="stat-card">
                     <div class="stat-info">
-                        <span class="stat-label">Kelulusan KPP (Warga)</span>
+                        <span class="stat-label">Kelulusan KPP (Warga Aktif)</span>
                         <span class="stat-value" id="dashWargaVal">-</span>
-                        <span class="stat-sub"><strong id="dashWargaCount">0</strong> orang lulus jadi Warga</span>
+                        <span class="stat-sub"><strong id="dashWargaCount">0</strong> orang lulus jadi Warga Aktif</span>
                     </div>
                     <div class="radial-container">
                         <svg width="80" height="80">
@@ -1094,9 +1209,9 @@
                 <!-- Card 3: Kelayakan PO Jahim -->
                 <div class="stat-card">
                     <div class="stat-info">
-                        <span class="stat-label">Bisa PO Jahim</span>
+                        <span class="stat-label">Passed PO Jahim</span>
                         <span class="stat-value" id="dashJahimVal">-</span>
-                        <span class="stat-sub"><strong id="dashJahimCount">0</strong> orang bisa pesan Jahim</span>
+                        <span class="stat-sub"><strong id="dashJahimCount">0</strong> orang Passed PO Jahim</span>
                     </div>
                     <div class="radial-container">
                         <svg width="80" height="80">
@@ -1154,6 +1269,54 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Card Ketercapaian KPP dan Konsekuensi -->
+            <div class="card-panel">
+                <div class="card-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                    <span>Ketercapaian KPP dan Konsekuensi</span>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.5;">Ketercapaian rata-rata angkatan untuk setiap kriteria KPP dan Konsekuensi serta status ketercapaian target (Target: 85% atau sesuai ketentuan).</p>
+                
+                <!-- Filter & Search Bar -->
+                <div class="tool-filter-section" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 24px;">
+                    <!-- Filter buttons -->
+                    <div class="filter-btn-group">
+                        <button class="filter-btn active" onclick="filterTools('all')">Semua</button>
+                        <button class="filter-btn" onclick="filterTools('achieved')">Tercapai</button>
+                        <button class="filter-btn" onclick="filterTools('failed')">Tidak Tercapai</button>
+                    </div>
+                    <!-- Search Input -->
+                    <div class="tool-search-container">
+                        <input type="text" id="toolSearchInput" class="tool-search-input" oninput="searchTools()" placeholder="Cari..." />
+                        <svg style="position: absolute; right: 12px; color: var(--text-muted); pointer-events: none;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+                    <!-- KPP Tools -->
+                    <div>
+                        <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                            <span style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%;"></span>
+                            KPP (Kinerja & Partisipasi)
+                        </h3>
+                        <div id="kppToolsContainer" style="display: flex; flex-direction: column; gap: 12px;">
+                            <!-- Dynamically loaded KPP tools -->
+                        </div>
+                    </div>
+                    
+                    <!-- Konsekuensi Tools -->
+                    <div>
+                        <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--warning-dark); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                            <span style="width: 8px; height: 8px; background: var(--warning); border-radius: 50%;"></span>
+                            Konsekuensi
+                        </h3>
+                        <div id="konsekToolsContainer" style="display: flex; flex-direction: column; gap: 12px;">
+                            <!-- Dynamically loaded Konsekuensi tools -->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1184,9 +1347,16 @@
                     <p id="resNrp">NRP: -</p>
                 </div>
 
-                <div class="badge-row">
+                <div class="badge-row" style="margin-bottom: 16px;">
                     <span id="resWargaBadge" class="badge">-</span>
                     <span id="resJahimBadge" class="badge">-</span>
+                </div>
+
+                <div id="resSkContainer" style="margin-bottom: 24px; display: none;">
+                    <a href="https://docs.google.com/document/d/1JtZZ_5r7wnnCGwTaySKJ6wvQsorgV3DYBkcfFjTtc_c/edit?usp=sharing" target="_blank" class="link-btn" style="padding: 12px 18px; font-size: 0.9rem; gap: 8px; width: 100%; justify-content: center; border-radius: 12px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        Surat Keterangan Lulus (SK MANAGE 2025)
+                    </a>
                 </div>
 
                 <div class="bars-container">
@@ -1223,6 +1393,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 24px 0 10px 0; margin-top: 30px; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-inner); width: 100%; display: flex; flex-direction: column; gap: 6px; align-items: center;">
+        <div style="font-weight: 500; letter-spacing: 0.02em;">
+            &copy; 2025 - 2026 <span style="color: var(--primary-dark); font-weight: 700;">Kayla Putri Maharani</span>. All Rights Reserved.
+        </div>
+        <div style="font-size: 0.75rem; opacity: 0.8;">
+            Sistem Informasi Kelulusan & Pemesanan Jaket Himpunan MANAGE
+        </div>
+    </footer>
 </div>
 
 <script>
@@ -1230,19 +1410,155 @@
     let mahasiswaData = [];
     let sourceData = [];
     let thresholdPO = 75; // Default fallback threshold
+    let kppRulesList = [];
+    let konsekRulesList = [];
 
-    // Memuat data.json dan source.json secara paralel menggunakan Promise.all
-    Promise.all([
-        fetch('data.json').then(res => {
-            if (!res.ok) throw new Error('Gagal memuat data mahasiswa (data.json)');
-            return res.json();
-        }),
-        fetch('source.json').then(res => {
-            if (!res.ok) throw new Error('Gagal memuat kriteria aturan (source.json)');
-            return res.json();
-        })
-    ])
-    .then(([data, source]) => {
+    // Google Spreadsheet configurations
+    const SPREADSHEET_ID = '1_5aj9zDefMnXXBYcv-6yjJHyE1zAisxbEGPo_PYmtMg';
+    const GID_BOARD = '1812264327';
+    const GID_SOURCE = '0';
+    
+    const URL_BOARD = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${GID_BOARD}`;
+    const URL_SOURCE = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${GID_SOURCE}`;
+
+    // Simple RFC 4180 compliant CSV Parser
+    function parseCSV(text) {
+        const lines = [];
+        let row = [""];
+        let inQuotes = false;
+
+        for (let i = 0; i < text.length; i++) {
+            const c = text[i];
+            const next = text[i+1];
+
+            if (c === '"') {
+                if (inQuotes && next === '"') {
+                    row[row.length - 1] += '"';
+                    i++;
+                } else {
+                    inQuotes = !inQuotes;
+                }
+            } else if (c === ',' && !inQuotes) {
+                row.push('');
+            } else if ((c === '\r' || c === '\n') && !inQuotes) {
+                if (c === '\r' && next === '\n') {
+                    i++;
+                }
+                lines.push(row);
+                row = [''];
+            } else {
+                row[row.length - 1] += c;
+            }
+        }
+        if (row.length > 1 || row[0] !== '') {
+            lines.push(row);
+        }
+        return lines;
+    }
+
+    // Convert Board CSV to match format of data.json
+    function csvToObjects(csvText) {
+        const lines = parseCSV(csvText);
+        const objects = [];
+        
+        let startIdx = -1;
+        for (let i = 0; i < lines.length; i++) {
+            if (lines[i][0] === 'No') {
+                startIdx = i;
+                break;
+            }
+        }
+        
+        if (startIdx === -1) {
+            console.error("Gagal menemukan baris header 'No' di CSV");
+            return [];
+        }
+        
+        const keys = [
+            "", "__1", "__2", "__3", "__4", "KPP", "__5", "__6", "__7", "__8",
+            "__9", "__10", "__11", "KONSEKUENSI", "__12", "__13", "__14", "__15", "__16",
+            "Penilaian", "__17", "__18", "__19"
+        ];
+        
+        // 1. Header row
+        const headerObj = {};
+        keys.forEach((key, colIdx) => {
+            headerObj[key] = lines[startIdx][colIdx] || "";
+        });
+        objects.push(headerObj);
+        
+        // 2. TnC row
+        const tncObj = {};
+        keys.forEach((key, colIdx) => {
+            tncObj[key] = lines[startIdx + 1][colIdx] || "";
+        });
+        objects.push(tncObj);
+        
+        // 3. Bobot row
+        const bobotObj = {};
+        keys.forEach((key, colIdx) => {
+            const rawVal = lines[startIdx + 2][colIdx] || "";
+            if (colIdx >= 5 && colIdx <= 18) {
+                bobotObj[key] = parseFloat(rawVal) || 0;
+            } else if (key === "__19") {
+                bobotObj[key] = parseFloat(rawVal) || 75;
+            } else {
+                bobotObj[key] = rawVal;
+            }
+        });
+        objects.push(bobotObj);
+        
+        // 4. Student rows and KETERCAPAIAN
+        for (let i = startIdx + 3; i < lines.length; i++) {
+            const row = lines[i];
+            if (row.length === 0 || !row[0]) continue;
+            
+            const obj = {};
+            keys.forEach((key, colIdx) => {
+                const rawVal = row[colIdx] || "";
+                if (row[0] === 'KETERCAPAIAN') {
+                    obj[key] = rawVal;
+                } else if (colIdx >= 5 && colIdx <= 18) {
+                    obj[key] = parseFloat(rawVal) || 0;
+                } else if (colIdx >= 19 && colIdx <= 21) {
+                    obj[key] = parseFloat(rawVal) || 0;
+                } else {
+                    obj[key] = rawVal;
+                }
+            });
+            objects.push(obj);
+        }
+        
+        return objects;
+    }
+
+    // Convert Source CSV to match format of source.json
+    function csvToSourceObjects(csvText) {
+        const lines = parseCSV(csvText);
+        const objects = [];
+        
+        lines.forEach(row => {
+            const skVal = row[0] || "";
+            const bobotVal = row[1] || "";
+            const sourceVal = row[2] || "";
+            
+            let parsedBobot = bobotVal;
+            if (bobotVal && !isNaN(bobotVal) && bobotVal.trim() !== "") {
+                parsedBobot = parseFloat(bobotVal);
+            }
+            
+            objects.push({
+                "SK": skVal,
+                "SK MANAGE 2025": parsedBobot,
+                "": sourceVal
+            });
+        });
+        
+        return objects;
+    }
+
+    // Shared processing function
+    function processLoadedData(data, source) {
         rawData = data;
         sourceData = source;
         
@@ -1259,19 +1575,41 @@
         
         // Inisialisasi statistik dashboard
         initDashboard();
+    }
+
+    // Load data from live Google Sheets (No local fallback as requested)
+    console.log("Mencoba memuat data live dari Google Spreadsheet...");
+    Promise.all([
+        fetch(URL_BOARD).then(res => {
+            if (!res.ok) throw new Error('Gagal memuat data live board dari Google Spreadsheet');
+            return res.text();
+        }),
+        fetch(URL_SOURCE).then(res => {
+            if (!res.ok) throw new Error('Gagal memuat data live source dari Google Spreadsheet');
+            return res.text();
+        })
+    ])
+    .then(([csvBoard, csvSource]) => {
+        console.log("Data live berhasil dimuat!");
+        const data = csvToObjects(csvBoard);
+        const source = csvToSourceObjects(csvSource);
+        processLoadedData(data, source);
     })
-    .catch(error => {
-        console.error('Error loading JSON files:', error);
-        showGlobalError();
+    .catch(err => {
+        console.error('Pemuatan data dari Google Sheets gagal:', err);
+        showSpreadsheetError(err.message);
     });
 
-    function showGlobalError() {
+    function showSpreadsheetError(errMsg) {
         const errorAlert = document.getElementById('errorAlert');
         errorAlert.innerHTML = `
-            <strong>Gagal Memuat File data.json atau source.json!</strong><br>
-            <span style="font-size: 0.8rem; margin-top: 4px; display: block; opacity: 0.85; line-height: 1.4;">
-                Browser memblokir pembacaan file JSON eksternal dari protokol <code>file://</code> (keamanan CORS).<br>
-                Silakan jalankan menggunakan **Local Server** (Live Server di VS Code atau Python HTTP Server dengan <code>python -m http.server 8000</code>).
+            <strong>Gagal Memuat Data Live dari Google Spreadsheet!</strong><br>
+            <span style="font-size: 0.82rem; margin-top: 6px; display: block; opacity: 0.9; line-height: 1.5;">
+                Detail Error: <code>${errMsg}</code><br><br>
+                Langkah Solusi:<br>
+                1. Pastikan Anda memiliki koneksi internet aktif.<br>
+                2. Pastikan Google Spreadsheet sudah diatur dengan akses <strong>"Siapa saja yang memiliki link dapat melihat" (Anyone with the link can view)</strong>.<br>
+                3. Pastikan Spreadsheet ID dan GID yang terkonfigurasi di file HTML sudah benar.
             </span>
         `;
         errorAlert.style.display = 'block';
@@ -1361,6 +1699,7 @@
         const kppBody = document.getElementById('rulesKppBody');
         kppBody.innerHTML = '';
         
+        kppRulesList = [];
         kppKeys.forEach((key, idx) => {
             const titleName = headerRow[key];
             const sourceRuleObj = sourceKppItems[idx];
@@ -1370,6 +1709,17 @@
                 const detailText = sourceRuleObj.name || titleName;
                 const weight = sourceRuleObj.bobot;
                 const linkSource = sourceRuleObj.source;
+                
+                const tncRow = rawData[1];
+                const tncText = tncRow ? tncRow[key] : "";
+                
+                kppRulesList.push({
+                    key: key,
+                    titleName: titleName,
+                    detailText: detailText,
+                    weight: weight,
+                    tncText: tncText
+                });
 
                 // Render tombol link jika ada URL Google Docs/Spreadsheet yang valid
                 let actionLink = `<span class="link-disabled">-</span>`;
@@ -1396,6 +1746,7 @@
         const konsekBody = document.getElementById('rulesKonsekBody');
         konsekBody.innerHTML = '';
 
+        konsekRulesList = [];
         konsekKeys.forEach((key, idx) => {
             const titleName = headerRow[key];
             const sourceRuleObj = sourceKonsekItems[idx];
@@ -1404,6 +1755,17 @@
                 const detailText = sourceRuleObj.name || titleName;
                 const weight = sourceRuleObj.bobot;
                 const linkSource = sourceRuleObj.source;
+                
+                const tncRow = rawData[1];
+                const tncText = tncRow ? tncRow[key] : "";
+                
+                konsekRulesList.push({
+                    key: key,
+                    titleName: titleName,
+                    detailText: detailText,
+                    weight: weight,
+                    tncText: tncText
+                });
 
                 let actionLink = `<span class="link-disabled">-</span>`;
                 if (linkSource && typeof linkSource === 'string' && linkSource.startsWith('http')) {
@@ -1425,19 +1787,128 @@
         });
     }
 
+    let activeToolFilter = 'all';
+    let toolSearchQuery = '';
+
+    function filterTools(filterType) {
+        activeToolFilter = filterType;
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        if (event && event.currentTarget) {
+            event.currentTarget.classList.add('active');
+        }
+        renderDashboardTools();
+    }
+
+    function searchTools() {
+        toolSearchQuery = document.getElementById('toolSearchInput').value.toLowerCase().trim();
+        renderDashboardTools();
+    }
+
+    function renderDashboardTools() {
+        const kppToolsContainer = document.getElementById('kppToolsContainer');
+        const konsekToolsContainer = document.getElementById('konsekToolsContainer');
+        
+        if (!kppToolsContainer || !konsekToolsContainer) return;
+        
+        kppToolsContainer.innerHTML = '';
+        konsekToolsContainer.innerHTML = '';
+        
+        const ketercapaianRow = rawData.find(item => String(item[""]).trim() === "KETERCAPAIAN");
+        if (!ketercapaianRow) return;
+        
+        const renderToolCard = (rule, container) => {
+            let avgText = "0.0%";
+            let avgPercentage = 0;
+            
+            if (ketercapaianRow[rule.key] !== undefined) {
+                avgText = String(ketercapaianRow[rule.key]).trim();
+                avgPercentage = parseFloat(avgText) || 0;
+            }
+            
+            // Parse threshold target from TnC text
+            let target = 85;
+            if (rule.tncText) {
+                const match = rule.tncText.match(/(\d+)%/);
+                if (match) {
+                    target = parseInt(match[1]);
+                }
+            }
+            
+            const isAchieved = avgPercentage >= target;
+            
+            // Filter logic
+            if (activeToolFilter === 'achieved' && !isAchieved) return;
+            if (activeToolFilter === 'failed' && isAchieved) return;
+            
+            // Search logic
+            if (toolSearchQuery && !rule.titleName.toLowerCase().includes(toolSearchQuery)) return;
+            
+            // Determine progress bar color and glowing borders
+            let barColorClass = 'blue';
+            let borderStyle = 'border-left: 4px solid var(--danger);';
+            let bgGlow = 'rgba(239, 68, 68, 0.03)';
+            
+            if (isAchieved) {
+                barColorClass = 'green';
+                borderStyle = 'border-left: 4px solid var(--success);';
+                bgGlow = 'rgba(16, 185, 129, 0.03)';
+            } else if (avgPercentage >= 50) {
+                barColorClass = 'orange';
+                borderStyle = 'border-left: 4px solid var(--warning);';
+                bgGlow = 'rgba(245, 158, 11, 0.03)';
+            }
+            
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'tool-status-card';
+            cardDiv.style = `${borderStyle} background: ${bgGlow};`;
+            cardDiv.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
+                    <span style="font-size: 0.92rem; font-weight: 600; color: var(--text-primary); line-height: 1.3;">${rule.titleName}</span>
+                    <span class="badge ${isAchieved ? 'success' : 'danger'}" style="font-size: 0.72rem; padding: 4px 10px; margin: 0; white-space: nowrap;">
+                        ${isAchieved ? 'Tercapai' : 'Tidak Tercapai'}
+                    </span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 2px;">
+                    <div class="bar-track" style="flex: 1; height: 6px; background: rgba(15, 23, 42, 0.05); margin: 0;">
+                        <div class="bar-fill ${barColorClass}" style="width: ${avgPercentage}%; height: 100%;"></div>
+                    </div>
+                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); width: 85px; text-align: right; white-space: nowrap;">
+                        ${avgText} <span style="font-size: 0.72rem; font-weight: 500; color: var(--text-muted);">/ ${target}%</span>
+                    </span>
+                </div>
+            `;
+            container.appendChild(cardDiv);
+        };
+        
+        kppRulesList.forEach(rule => renderToolCard(rule, kppToolsContainer));
+        konsekRulesList.forEach(rule => renderToolCard(rule, konsekToolsContainer));
+    }
+
     // Menginisialisasi & menghitung data dashboard statistik
     function initDashboard() {
         if (mahasiswaData.length === 0) return;
 
         const total = mahasiswaData.length;
         
-        // Hitung Kelulusan Warga
+        // Hitung Kelulusan Warga (LULUS)
         const lulusCount = mahasiswaData.filter(m => String(m["__4"]).trim() === "LULUS").length;
         const lulusPercent = total > 0 ? ((lulusCount / total) * 100).toFixed(1) : 0;
         
-        // Hitung Kelayakan PO Jahim
+        // Find the KETERCAPAIAN row in rawData
+        const ketercapaianRow = rawData.find(item => String(item[""]).trim() === "KETERCAPAIAN");
+        
+        // Kelayakan PO Jahim
+        let poPercentText = "";
+        let poPercentNum = 0;
         const poCount = mahasiswaData.filter(m => String(m["__19"]).trim() === "PO JAHIM").length;
-        const poPercent = total > 0 ? ((poCount / total) * 100).toFixed(1) : 0;
+        
+        if (ketercapaianRow && ketercapaianRow["__19"] !== undefined) {
+            poPercentText = String(ketercapaianRow["__19"]).trim();
+            poPercentNum = parseFloat(poPercentText) || 0;
+        } else {
+            poPercentNum = total > 0 ? (poCount / total) * 100 : 0;
+            poPercentText = poPercentNum.toFixed(1) + "%";
+        }
 
         // Tulis nilai ke UI (KPI Utama)
         document.getElementById('dashTotal').innerText = total;
@@ -1446,14 +1917,24 @@
         document.getElementById('dashWargaCount').innerText = lulusCount;
         document.getElementById('dashWargaPercent').innerText = Math.round(lulusPercent) + "%";
         
-        document.getElementById('dashJahimVal').innerText = poPercent + "%";
+        document.getElementById('dashJahimVal').innerText = poPercentText;
         document.getElementById('dashJahimCount').innerText = poCount;
-        document.getElementById('dashJahimPercent').innerText = Math.round(poPercent) + "%";
+        document.getElementById('dashJahimPercent').innerText = Math.round(poPercentNum) + "%";
 
         // Hitung Rata-rata Nilai Angkatan 2024
-        const avgKpp = total > 0 ? (mahasiswaData.reduce((sum, m) => sum + (parseFloat(m["Penilaian"]) || 0), 0) / total) : 0;
-        const avgKonsek = total > 0 ? (mahasiswaData.reduce((sum, m) => sum + (parseFloat(m["__17"]) || 0), 0) / total) : 0;
-        const avgTotal = total > 0 ? (mahasiswaData.reduce((sum, m) => sum + (parseFloat(m["__18"]) || 0), 0) / total) : 0;
+        let avgKpp = 0;
+        let avgKonsek = 0;
+        let avgTotal = 0;
+        
+        if (ketercapaianRow) {
+            avgKpp = parseFloat(ketercapaianRow["Penilaian"]) || 0;
+            avgKonsek = parseFloat(ketercapaianRow["__17"]) || 0;
+            avgTotal = parseFloat(ketercapaianRow["__18"]) || 0;
+        } else {
+            avgKpp = total > 0 ? (mahasiswaData.reduce((sum, m) => sum + (parseFloat(m["Penilaian"]) || 0), 0) / total) : 0;
+            avgKonsek = total > 0 ? (mahasiswaData.reduce((sum, m) => sum + (parseFloat(m["__17"]) || 0), 0) / total) : 0;
+            avgTotal = total > 0 ? (mahasiswaData.reduce((sum, m) => sum + (parseFloat(m["__18"]) || 0), 0) / total) : 0;
+        }
 
         // Update Nilai Rata-rata & Bar Progres di UI
         document.getElementById('avgKppVal').innerText = avgKpp.toFixed(1) + " / 100";
@@ -1466,7 +1947,10 @@
 
         // Animate circular progress rings
         animateProgressCircle('circleWarga', parseFloat(lulusPercent));
-        animateProgressCircle('circleJahim', parseFloat(poPercent));
+        animateProgressCircle('circleJahim', poPercentNum);
+
+        // Render individual tools achievement in dashboard
+        renderDashboardTools();
     }
 
     function animateProgressCircle(elementId, percentage) {
@@ -1523,22 +2007,25 @@
             // Status Warga Badge
             const statusWarga = String(mhs["__4"]).trim();
             const resWargaBadge = document.getElementById('resWargaBadge');
+            const resSkContainer = document.getElementById('resSkContainer');
             if (statusWarga === "LULUS") {
-                resWargaBadge.innerText = "Warga";
+                resWargaBadge.innerText = "Warga Aktif";
                 resWargaBadge.className = "badge success";
+                if (resSkContainer) resSkContainer.style.display = "block";
             } else {
-                resWargaBadge.innerText = "Non-Warga";
+                resWargaBadge.innerText = "Warga Pasif";
                 resWargaBadge.className = "badge danger";
+                if (resSkContainer) resSkContainer.style.display = "none";
             }
 
             // Status PO Jahim Badge
             const statusJahim = String(mhs["__19"]).trim();
             const resJahimBadge = document.getElementById('resJahimBadge');
             if (statusJahim === "PO JAHIM") {
-                resJahimBadge.innerText = "Bisa PO Jahim";
+                resJahimBadge.innerText = "Passed PO Jahim";
                 resJahimBadge.className = "badge primary";
             } else {
-                resJahimBadge.innerText = "Belum Bisa PO";
+                resJahimBadge.innerText = "Not Passed";
                 resJahimBadge.className = "badge danger";
             }
 
