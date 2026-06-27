@@ -717,6 +717,12 @@
             gap: 20px;
         }
 
+        .search-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
         /* Global Alert box */
         .alert-box {
             display: none;
@@ -1090,6 +1096,11 @@
                 grid-template-columns: 1fr !important;
                 gap: 12px !important;
             }
+
+            .search-detail-grid {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+            }
         }
     </style>
 </head>
@@ -1421,6 +1432,38 @@
                         </div>
                         <div class="bar-track">
                             <div id="resTotalFill" class="bar-fill green"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detail Ketercapaian Masing-masing Kriteria -->
+                <div class="search-details-section" style="margin-top: 30px; border-top: 1px solid var(--border-inner); padding-top: 24px;">
+                    <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
+                        Rincian Nilai per Kriteria
+                    </h3>
+                    
+                    <div class="search-detail-grid">
+                        <!-- Detail KPP -->
+                        <div>
+                            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                                <span style="width: 6px; height: 6px; background: var(--primary); border-radius: 50%;"></span>
+                                KPP (Kinerja & Partisipasi)
+                            </h4>
+                            <div id="searchKppDetailContainer" style="display: flex; flex-direction: column; gap: 10px;">
+                                <!-- Dynamic detail rows -->
+                            </div>
+                        </div>
+                        
+                        <!-- Detail Konsekuensi -->
+                        <div>
+                            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--warning-dark); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                                <span style="width: 6px; height: 6px; background: var(--warning); border-radius: 50%;"></span>
+                                Konsekuensi
+                            </h4>
+                            <div id="searchKonsekDetailContainer" style="display: flex; flex-direction: column; gap: 10px;">
+                                <!-- Dynamic detail rows -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2086,6 +2129,83 @@
             totalFill.style.width = '0%';
             setTimeout(() => { totalFill.style.width = total + '%'; }, 100);
             updateBarColorClass(totalFill, total);
+
+            // Render rincian nilai per kriteria di hasil pencarian
+            const searchKppDetailContainer = document.getElementById('searchKppDetailContainer');
+            const searchKonsekDetailContainer = document.getElementById('searchKonsekDetailContainer');
+            
+            if (searchKppDetailContainer && searchKonsekDetailContainer) {
+                searchKppDetailContainer.innerHTML = '';
+                searchKonsekDetailContainer.innerHTML = '';
+                
+                const createDetailItem = (rule) => {
+                    const score = parseFloat(mhs[rule.key]) || 0;
+                    
+                    // Parse target dari TnC kriteria (default fallback 85)
+                    let target = 85;
+                    if (rule.tncText) {
+                        const match = rule.tncText.match(/(\d+)%/);
+                        if (match) {
+                            target = parseInt(match[1]);
+                        }
+                    }
+                    
+                    const isTargetMet = score >= target;
+                    
+                    let statusColor = 'var(--danger-dark)';
+                    let statusBg = 'var(--danger-light)';
+                    let statusLabel = 'Tidak Tercapai';
+                    let borderLeftStyle = 'border-left: 3px solid var(--danger);';
+                    
+                    if (isTargetMet) {
+                        statusColor = 'var(--success-dark)';
+                        statusBg = 'var(--success-light)';
+                        statusLabel = 'Tercapai';
+                        borderLeftStyle = 'border-left: 3px solid var(--success);';
+                    } else if (score >= 50) {
+                        statusColor = 'var(--warning-dark)';
+                        statusBg = 'var(--warning-light)';
+                        borderLeftStyle = 'border-left: 3px solid var(--warning);';
+                    }
+                    
+                    const itemDiv = document.createElement('div');
+                    itemDiv.style = `
+                        background: rgba(255, 255, 255, 0.7);
+                        border: 1px solid var(--border-inner);
+                        ${borderLeftStyle}
+                        border-radius: 12px;
+                        padding: 12px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 8px;
+                        box-shadow: var(--shadow-sm);
+                    `;
+                    
+                    itemDiv.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
+                            <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-primary); line-height: 1.3;">${rule.titleName}</span>
+                            <span style="font-size: 0.7rem; padding: 2px 8px; border-radius: 20px; font-weight: 700; color: ${statusColor}; background: ${statusBg}; white-space: nowrap;">
+                                ${statusLabel}
+                            </span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 2px;">
+                            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">Bobot: ${(rule.weight * 100)}%</span>
+                            <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary);">
+                                ${score.toFixed(2)}% <span style="font-size: 0.72rem; font-weight: 500; color: var(--text-muted);">/ Target ${target}%</span>
+                            </span>
+                        </div>
+                    `;
+                    return itemDiv;
+                };
+                
+                kppRulesList.forEach(rule => {
+                    searchKppDetailContainer.appendChild(createDetailItem(rule));
+                });
+                
+                konsekRulesList.forEach(rule => {
+                    searchKonsekDetailContainer.appendChild(createDetailItem(rule));
+                });
+            }
 
         } else {
             errorAlert.innerText = "NRP kamu tidak ditemukan. Coba periksa kembali ketikannya ya!";
