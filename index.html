@@ -704,6 +704,19 @@
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
 
+        /* Layout Grid systems */
+        .dashboard-split-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .average-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
         /* Global Alert box */
         .alert-box {
             display: none;
@@ -932,14 +945,20 @@
 
             /* Mengatasi agar teks panjang syarat minimal tidak terhimpit */
             .rules-table td {
-                border: none;
-                padding: 6px 0;
+                border-bottom: 1px solid rgba(15, 23, 42, 0.04) !important;
+                padding: 10px 0 !important;
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
                 justify-content: flex-start;
                 text-align: left;
                 gap: 4px;
+                width: 100%;
+            }
+
+            .rules-table td:last-child {
+                border-bottom: none !important;
+                padding-bottom: 0 !important;
             }
 
             .rules-table td::before {
@@ -1055,6 +1074,16 @@
 
             .tool-search-container {
                 max-width: 100% !important;
+            }
+
+            .dashboard-split-grid {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+            }
+
+            .average-stats-grid {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
             }
         }
     </style>
@@ -1231,7 +1260,7 @@
                 </div>
                 <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">Statistik rata-rata nilai KPP, Konsekuensi, dan Nilai Akhir seluruh mahasiswa.</p>
                 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <div class="average-stats-grid">
                     <!-- Rerata KPP -->
                     <div style="background: rgba(15, 23, 42, 0.02); padding: 20px; border-radius: 14px; border: 1px solid var(--border-inner); box-shadow: var(--shadow-sm);">
                         <div class="bar-info">
@@ -1293,14 +1322,14 @@
                     </div>
                 </div>
                 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+                <div class="dashboard-split-grid">
                     <!-- KPP Tools -->
                     <div>
                         <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
                             <span style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%;"></span>
                             KPP (Kinerja & Partisipasi)
                         </h3>
-                        <div id="kppToolsContainer" style="display: flex; flex-direction: column; gap: 12px;">
+                        <div id="kppToolsContainer" style="display: flex; flex-direction: column; gap: 16px;">
                             <!-- Dynamically loaded KPP tools -->
                         </div>
                     </div>
@@ -1311,7 +1340,7 @@
                             <span style="width: 8px; height: 8px; background: var(--warning); border-radius: 50%;"></span>
                             Konsekuensi
                         </h3>
-                        <div id="konsekToolsContainer" style="display: flex; flex-direction: column; gap: 12px;">
+                        <div id="konsekToolsContainer" style="display: flex; flex-direction: column; gap: 16px;">
                             <!-- Dynamically loaded Konsekuensi tools -->
                         </div>
                     </div>
