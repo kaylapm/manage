@@ -621,6 +621,7 @@
         .bar-fill.blue { background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%); }
         .bar-fill.green { background: linear-gradient(90deg, var(--success) 0%, var(--success-dark) 100%); }
         .bar-fill.orange { background: linear-gradient(90deg, var(--warning) 0%, var(--warning-dark) 100%); }
+        .bar-fill.red { background: linear-gradient(90deg, var(--danger) 0%, var(--danger-dark) 100%); }
 
         /* Tool Status Cards for Dashboard */
         .tool-status-card {
@@ -1921,7 +1922,7 @@
             if (toolSearchQuery && !rule.titleName.toLowerCase().includes(toolSearchQuery)) return;
             
             // Determine progress bar color and glowing borders
-            let barColorClass = 'blue';
+            let barColorClass = 'red';
             let borderStyle = 'border-left: 4px solid var(--danger);';
             let bgGlow = 'rgba(239, 68, 68, 0.03)';
             
@@ -2255,7 +2256,7 @@
         } else if (score >= 50) {
             element.classList.add('orange');
         } else {
-            element.classList.add('blue');
+            element.classList.add('red');
         }
     }
 </script>
